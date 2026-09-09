@@ -7,14 +7,17 @@ project:
     - "notebooks/**/*.qmd"
     - "!DO-NOT-PUBLISH.md"
     - "!README.md"
+    # Held until the locked CV PDF supplies real citations and the
+    # 2017-2019 employer. Do not re-enable with PENDING text in them.
+    - "!papers.qmd"
+    - "!cv.qmd"
   resources:
-    - CNAME
     - files/
 
 website:
   title: "Rishad Ahmed"
   description: "Applied epidemiologist. Observational studies on linked administrative and surveillance data."
-  site-url: "https://rishadahmed.com"
+  site-url: "https://englishshuvo.github.io"
   open-graph: true
   navbar:
     pinned: true
@@ -31,23 +34,15 @@ website:
             text: "Surveillance systems"
           - href: work/outcomes.qmd
             text: "Outcomes and decision evidence"
-      - href: papers.qmd
-        text: Papers
       - href: methods.qmd
         text: Methods
-      - href: cv.qmd
-        text: CV
   page-footer:
     left: "Rishad Ahmed, PhD, MBA. Lincoln, Nebraska."
     right:
-      - text: Email
-        href: "mailto:EMAIL_PLACEHOLDER"
       - text: LinkedIn
         href: "https://www.linkedin.com/in/rishad-ahmed-a9398579"
       - text: GitHub
         href: "https://github.com/englishshuvo"
-      - text: CV (PDF)
-        href: "/files/rishad-ahmed-cv.pdf"
 
 format:
   html:

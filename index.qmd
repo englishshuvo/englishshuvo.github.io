@@ -15,9 +15,7 @@ Peer-reviewed papers in *Journal of Agromedicine* and *American Journal of Indus
 :::
 
 ::: {.btnrow}
-[CV (PDF)](files/rishad-ahmed-cv.pdf){.primary}
-[LinkedIn]({{< var linkedin >}})
-[Email](mailto:{{< var email >}})
+[LinkedIn]({{< var linkedin >}}){.primary}
 :::
 
 I design and run observational studies on data that was collected for administration and public health operations, not for research. Most of my work involves getting several imperfect sources to agree on the same person, the same event, and the same time window, then stating plainly what the resulting estimate can and cannot support. I work at a state health department on overdose, injury, and mortality surveillance, and my doctoral research was in occupational and environmental epidemiology.
@@ -60,4 +58,4 @@ Burden and outcome tables built from public data to answer a specific program qu
 
 If you have five minutes, read the [RWE protocol and notebook](work/rwe.qmd). It shows how I state a question, define a cohort, choose a comparison, and describe what would break the estimate.
 
-If you want the employment record, the [CV](cv.qmd) matches my LinkedIn and my resume line for line.
+The full employment record and publication list are on [LinkedIn]({{< var linkedin >}}) and are being added here.
