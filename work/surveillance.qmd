@@ -1,0 +1,28 @@
+---
+title: "Surveillance systems"
+subtitle: "Multi-source public health surveillance and linkage"
+---
+
+Since September 2025 I have been Surveillance Supervisor (Epidemiologist III) at Nebraska DHHS, where overdose, injury, and violent death surveillance runs on several systems that were never designed to talk to each other. The practical work is definitional and operational before it is statistical: deciding what counts as a case in each source, deciding which record wins when two sources disagree, and knowing how late each feed is before anyone builds a trend on it. Nebraska has a population of roughly two million, which is small enough that a single reporting lag can change the shape of a curve and large enough that manual review does not scale. The systems below are described at the level of architecture and data flow only.
+
+## Artifacts
+
+**Sanitized multi-source architecture.** A diagram of how prescription drug monitoring, EMS, hospital discharge, vital records, syndromic surveillance, and overdose mapping feeds combine into a case-level picture, with the join keys and the match logic described in general terms. No row-level data, no screenshots of internal dashboards.
+
+**Timeliness and lag note.** Each source has a different delay between event and availability. This note describes how I reason about provisional counts, back-fill, and what a trend statement can honestly say at each lag.
+
+*Both artifacts are in preparation and will be posted here once cleared for release.*
+
+## What I actually did
+
+- Supervision of surveillance programs covering overdose (PDMP, OD2A), violent death and suicide (NVDRS, SUDORS), highway safety, and EMS.
+- Linkage across prescription drug monitoring, EMS, hospital discharge, vital records, and overdose mapping data.
+- Syndromic surveillance work in ESSENCE.
+- Program reporting and coordination with CDC, the Bureau of Justice Assistance, and NHTSA program requirements.
+- Analysis and reporting in R, SAS, SQL, Power BI, Tableau, and ArcGIS.
+
+## What I am not claiming
+
+::: {.limits}
+Nothing on this site contains protected health information, identifiable records, internal dashboards, or restricted data from any of these systems. Descriptions here are limited to architecture, data flow, and publicly documented system behavior. I am not the system owner or vendor for any of these platforms, and I do not speak for Nebraska DHHS on this site.
+:::

@@ -1,0 +1,112 @@
+---
+title: "Study protocol: sedating medication use and subsequent injury-related medical events"
+subtitle: "Public-data protocol, Medical Expenditure Panel Survey"
+date: last-modified
+---
+
+<!-- Draft v0.1. Numbers appear only in the notebook, never in this protocol. -->
+
+This protocol is written on public data, by me, for demonstration. It is not a client deliverable and it is not a regulatory document. It is structured the way I structure a real protocol so that a reviewer can see the reasoning before seeing any result.
+
+## 1. Question
+
+Among community-dwelling adults aged 50 and older, is initiation of a sedating medication class associated with a higher rate of injury-related medical events in the following year, compared with initiation of a non-sedating analgesic?
+
+Primary estimand: the rate of injury-related medical events in the follow-up period among new users of a sedating class, compared with new users of the active comparator, adjusted for measured confounders.
+
+## 2. Data source
+
+Medical Expenditure Panel Survey (MEPS), Household Component, Agency for Healthcare Research and Quality. Public use files.
+
+Files used:
+
+- Full Year Consolidated file. Demographics, health status, chronic conditions, survey weights.
+- Prescribed Medicines file. Drug name, therapeutic class, fill dates by round.
+- Emergency Room Visits, Outpatient Visits, and Hospital Inpatient Stays event files. Condition codes attached to each event.
+- Medical Conditions file. Links events to condition codes.
+
+Rationale for MEPS: person-level public microdata, a two-year panel structure that supports a baseline and a follow-up window, medication and utilization on the same person, and a complex survey design that has to be respected. It is free, downloadable, and fully reproducible, which is the point.
+
+Known limitation accepted at the design stage: MEPS medication data is self-reported and pharmacy-verified for a subset. Dose and indication are weak. This is stated again in Section 8.
+
+## 3. Design
+
+New-user, active-comparator cohort within a single MEPS panel.
+
+- Panel structure: five rounds over two calendar years.
+- Baseline window: Rounds 1 and 2.
+- Exposure ascertainment window: Round 2.
+- Follow-up window: Rounds 3 through 5.
+
+New user is defined as no fill of any drug in the exposure class or the comparator class during Round 1.
+
+## 4. Population
+
+Inclusion:
+
+1. Age 50 or older at the start of Round 1.
+2. Present in the panel with positive person weight across all five rounds.
+3. At least one fill of either the exposure class or the comparator class in Round 2.
+4. No fill of either class in Round 1.
+
+Exclusion:
+
+1. Fills of both the exposure class and the comparator class in Round 2.
+2. Any injury-related medical event during Rounds 1 or 2.
+3. Residence in a long-term care institution during Round 1, where identifiable.
+4. Missing values on age, sex, or the covariates listed in Section 7 that cannot be resolved.
+
+The cohort table in the notebook reports the count remaining after each step in this order.
+
+## 5. Exposure
+
+Exposure group: new users of a sedating medication class in Round 2, identified from the Prescribed Medicines file by therapeutic class code and drug name. Classes considered are opioid analgesics, benzodiazepines, non-benzodiazepine hypnotics, and first-generation antihistamines. The exact class list and the code mapping are fixed in the notebook before any outcome is examined.
+
+Comparator group: new users of a non-sedating analgesic, defined as a non-opioid, non-sedating pain medication in the same round.
+
+Rationale for the active comparator: users of any analgesic share the underlying pain indication that itself predicts injury. Comparing sedating users to untreated people would confound the drug effect with the reason for treatment.
+
+## 6. Outcome
+
+Injury-related medical event during Rounds 3 through 5, defined as an emergency room visit, outpatient visit, or inpatient stay whose linked condition record carries an injury condition code.
+
+The outcome definition is written down and frozen before the analysis is run. Any change to it after seeing results is reported as a post hoc change, not as the primary analysis.
+
+Follow-up ends at the earliest of: end of Round 5, death, or loss of panel participation.
+
+## 7. Covariates
+
+Measured at baseline, Rounds 1 and 2 only.
+
+- Age, sex, race and ethnicity, education, income category, insurance category.
+- Self-rated physical and mental health.
+- Priority chronic conditions recorded in MEPS.
+- Count of distinct medications at baseline, as a proxy for overall burden.
+- Prior utilization count in the baseline window.
+
+No covariate measured after the exposure window enters the model. Post-exposure variables on the causal path are excluded on purpose, and the exclusion is stated.
+
+## 8. Analysis plan
+
+1. Cohort attrition table, one row per inclusion or exclusion step.
+2. Table 1, weighted, exposure group against comparator group, with standardized mean differences rather than p-values.
+3. Primary model: survey-weighted Poisson or Cox regression for injury-related events in the follow-up window, adjusted for the Section 7 covariates. The model family is fixed before the run and the choice is justified in one sentence.
+4. Survey design respected throughout using the MEPS strata, PSU, and person weight. Variance estimated with Taylor linearization.
+5. Pre-specified sensitivity analyses:
+   a. Narrower outcome definition, inpatient and emergency events only.
+   b. Stricter new-user rule requiring no fill in Rounds 1 or 2 of any class.
+   c. Complete-case analysis compared against the primary handling of missingness.
+6. Negative control outcome: a condition with no plausible causal link to sedation, used to detect residual confounding by health status.
+
+## 9. Limitations stated in advance
+
+- MEPS medication data is self-reported. Exposure misclassification is expected and is most likely non-differential with respect to a future injury, which would attenuate the estimate.
+- Round-level timing is coarse. The precise interval between fill and injury is not observable, so this is not a time-to-event analysis at the day level.
+- Indication is not recorded. The active comparator reduces confounding by indication but does not remove it, particularly for pain severity.
+- Injury events that did not generate a medical encounter are invisible. The estimate is about medically attended injury.
+- MEPS excludes institutionalized populations, so the result does not extend to nursing home residents.
+- Panel sample size at age 50 and older, restricted to new users, may be small. If the analytic n is too small to support the adjusted model, that is reported as the finding rather than concealed by a simpler model.
+
+## 10. What this protocol demonstrates
+
+Design decisions made before results, an active comparator chosen for a stated reason, a frozen outcome definition, respect for a complex survey design, and limitations written where a reader will actually see them.

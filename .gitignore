@@ -1,0 +1,13 @@
+/.quarto/
+/_site/
+.Rproj.user/
+.Rhistory
+.RData
+.DS_Store
+*.Rproj
+
+# Never commit anything derived from restricted sources.
+/private/
+*.sas7bdat
+*.sav
+*.dta

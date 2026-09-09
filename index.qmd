@@ -1,0 +1,63 @@
+---
+title: "Rishad Ahmed, PhD, MBA"
+pagetitle: "Rishad Ahmed, PhD, MBA"
+toc: false
+---
+
+::: {.lede}
+Applied epidemiologist. Observational studies on linked administrative and surveillance data.
+:::
+
+::: {.facts}
+PhD in Public Health, University of Nebraska Medical Center, 2025 &nbsp;·&nbsp;
+Surveillance Supervisor (Epidemiologist III), Nebraska DHHS &nbsp;·&nbsp;
+Peer-reviewed papers in *Journal of Agromedicine* and *American Journal of Industrial Medicine*
+:::
+
+::: {.btnrow}
+[CV (PDF)](files/rishad-ahmed-cv.pdf){.primary}
+[LinkedIn]({{< var linkedin >}})
+[Email](mailto:{{< var email >}})
+:::
+
+I design and run observational studies on data that was collected for administration and public health operations, not for research. Most of my work involves getting several imperfect sources to agree on the same person, the same event, and the same time window, then stating plainly what the resulting estimate can and cannot support. I work at a state health department on overdose, injury, and mortality surveillance, and my doctoral research was in occupational and environmental epidemiology.
+
+## Work
+
+::: {.cards}
+
+::: {.card2}
+### Observational and RWE
+Public-data protocol and analysis notebook for a drug-related safety question, written to the standard of a study protocol rather than a portfolio exercise.
+
+[Read more](work/rwe.qmd)
+:::
+
+::: {.card2}
+### Occupational and environmental
+Peer-reviewed studies of injury and exposure among agricultural and meatpacking workers, from field data collection through analysis and publication.
+
+[Read more](work/exposure.qmd)
+:::
+
+::: {.card2}
+### Surveillance systems
+Multi-source overdose and injury surveillance for a state of roughly two million people, spanning prescription drug monitoring, EMS, hospital discharge, and vital records.
+
+[Read more](work/surveillance.qmd)
+:::
+
+::: {.card2}
+### Outcomes and decision evidence
+Burden and outcome tables built from public data to answer a specific program question, with the assumptions written down next to the numbers.
+
+[Read more](work/outcomes.qmd)
+:::
+
+:::
+
+## Where to start
+
+If you have five minutes, read the [RWE protocol and notebook](work/rwe.qmd). It shows how I state a question, define a cohort, choose a comparison, and describe what would break the estimate.
+
+If you want the employment record, the [CV](cv.qmd) matches my LinkedIn and my resume line for line.

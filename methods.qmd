@@ -1,0 +1,32 @@
+---
+title: "Methods notes"
+---
+
+Short notes on the decisions that determine whether an observational estimate is worth anything. These are working notes, not review articles.
+
+## Linkage on administrative data
+
+Record linkage is usually presented as a technical step. In practice it is a study design decision, because the records that fail to link are not a random sample of the records you wanted. Someone who moves between counties, uses a nickname, or is admitted without an identifier is both harder to link and often at different risk than the people who link cleanly.
+
+The things I write down before linking:
+
+1. Which key is the anchor, and what its error rate looks like in each source.
+2. Whether the match is deterministic, probabilistic, or a deterministic cascade, and the threshold if probabilistic.
+3. The expected direction of bias if the unlinked records differ from the linked ones on the exposure or the outcome.
+4. A sensitivity analysis that repeats the main result under a stricter and a looser match rule.
+
+If the effect estimate moves substantially between the strict and the loose rule, the linkage is part of the finding and belongs in the abstract, not in a supplement.
+
+*Longer note in preparation.*
+
+## Confounding and comparator choice
+
+A new-user active-comparator design solves more problems than any covariate list. Where an active comparator does not exist, I state which of the following is doing the work: restriction, matching, regression adjustment, or a negative control outcome. I would rather show one adjusted model with a clear rationale than six models that let the reader pick.
+
+*Longer note in preparation.*
+
+## Cohort definition on operational data
+
+Operational data has no enrollment. Cohort entry, exposure windows, and follow-up end have to be constructed, and each construction choice is an assumption. I write the cohort definition as a sequence of filters with the count remaining after each step, so that a reader can see where the population went.
+
+*Longer note in preparation.*

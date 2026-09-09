@@ -1,0 +1,6 @@
+# Fill these once, they are used across pages as {{< var name >}}
+email: "EMAIL_PLACEHOLDER"
+github: "GITHUB_USERNAME_PLACEHOLDER"
+domain: "rishadahmed.com"
+linkedin: "https://www.linkedin.com/in/rishad-ahmed-a9398579"
+phone: "402-612-8016"

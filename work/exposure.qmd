@@ -1,0 +1,29 @@
+---
+title: "Occupational and environmental epidemiology"
+subtitle: "Exposure, injury, and health among working populations"
+---
+
+My doctoral research at the University of Nebraska Medical Center, from 2021 to 2025, was on injury and exposure among agricultural and food processing workers. The work involved populations that are hard to reach, exposures that are measured by proxy, and outcomes that are systematically under-reported, which is the same set of problems that appears in any observational study on operational data. I collected primary data, handled the survey and administrative sources behind it, and carried the analyses through peer review. The dissertation, completed in 2025, was on livestock worker injury.
+
+## Artifacts
+
+**Seasonal patterns in agricultural injury.** Published in *Journal of Agromedicine* (2024). See [Papers](../papers.qmd) for the full citation and DOI.
+
+**Dermal agrochemical exposure and skin outcomes.** Published in *American Journal of Industrial Medicine* (2024). See [Papers](../papers.qmd).
+
+**Trust, reporting, and health among meatpacking workers.** Published in *American Journal of Industrial Medicine* (2024) and in *Journal of Immigrant and Minority Health* (2026). See [Papers](../papers.qmd).
+
+**Dissertation, University of Nebraska Medical Center, 2025.** Livestock worker injury. Design, primary data collection, analysis, and defense.
+
+## What I actually did
+
+- Study design and primary data collection with agricultural and meatpacking worker populations, including instrument design in REDCap.
+- Exposure classification where direct measurement was not available, with the proxy and its error stated in the paper.
+- Analysis and manuscript preparation for four peer-reviewed papers and one dissertation.
+- Recipient of an NIH Research Scholar Award (2023) and a Healthy America Grant supporting this line of work.
+
+## What I am not claiming
+
+::: {.limits}
+This work is field and survey epidemiology with administrative supplements. It is not industrial hygiene, and I do not present myself as a certified industrial hygienist or as a quantitative exposure modeler working from personal sampling data. Formal weight-of-evidence and regulatory risk assessment are adjacent to this work, not the work itself.
+:::

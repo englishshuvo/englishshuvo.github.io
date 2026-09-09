@@ -1,0 +1,27 @@
+---
+title: "Outcomes and decision evidence"
+subtitle: "Burden estimates that answer a program question"
+---
+
+Programs ask a narrower question than papers do. They want to know how large a problem is in their own population, which subgroup carries most of it, and whether a change is real or is an artifact of reporting. I build burden and outcome tables from public data to answer that question directly, and I write the assumptions next to the numbers so that a reader can see which conclusions survive a different assumption. My MBA and my work in state government mean I am comfortable with the fact that the answer has to fit on one page and inform a decision that is being made anyway.
+
+## Artifacts
+
+**Burden table from public data.** Counts, rates, and a subgroup breakdown for a defined condition and population, built from an open source with the extraction code published. Denominator choice, suppression rule, and confidence interval method stated in the table footnotes.
+
+**Briefing note.** One page showing how a burden estimate was framed for a non-technical audience and what the program did with it.
+
+*Both artifacts are in preparation.*
+
+## What I actually did
+
+- Burden and trend analyses supporting state overdose, injury, and suicide prevention programs.
+- Program reporting products for CDC, BJA, and NHTSA funded programs, aimed at program staff rather than at reviewers.
+- Dashboards and recurring reports in Power BI and Tableau built on surveillance data.
+- Health economics coursework and an MBA, applied to framing and communication rather than to formal modeling.
+
+## What I am not claiming
+
+::: {.limits}
+This is not market access work. I have not written an AMCP dossier, a global value dossier, or an HTA submission, and I do not build cost-effectiveness or budget impact models in TreeAge or equivalent tools. Where a role needs that, my contribution is the epidemiology input, meaning burden, natural history, and comparator selection, not ownership of the economic model.
+:::

@@ -1,0 +1,99 @@
+---
+title: "Analysis notebook: sedating medication use and injury-related events"
+subtitle: "MEPS public use files"
+date: last-modified
+execute:
+  echo: true
+  warning: false
+  eval: false
+---
+
+<!--
+SCAFFOLD. execute.eval is false until the MEPS files are downloaded and the code is run.
+Set eval: true in the YAML above once the pipeline runs end to end.
+Nothing in this notebook may be presented as a result until it has actually run.
+-->
+
+Protocol for this analysis: [protocol.qmd](protocol.qmd). Read that first. This notebook implements it and adds nothing that is not specified there.
+
+## Setup
+
+```{r}
+library(dplyr)
+library(survey)
+library(MEPS)      # remotes::install_github("e-mitchell/meps_r_pkg/MEPS")
+library(gtsummary)
+
+options(survey.lonely.psu = "adjust")
+
+PANEL_YEAR <- 2021   # fix before running
+```
+
+## Load public files
+
+```{r}
+fyc  <- read_MEPS(year = PANEL_YEAR, type = "FYC")   # full year consolidated
+rx   <- read_MEPS(year = PANEL_YEAR, type = "RX")    # prescribed medicines
+er   <- read_MEPS(year = PANEL_YEAR, type = "ER")    # emergency room visits
+ip   <- read_MEPS(year = PANEL_YEAR, type = "IP")    # inpatient stays
+op   <- read_MEPS(year = PANEL_YEAR, type = "OP")    # outpatient visits
+cond <- read_MEPS(year = PANEL_YEAR, type = "COND")  # medical conditions
+clnk <- read_MEPS(year = PANEL_YEAR, type = "CLNK")  # condition-event link
+```
+
+## Exposure and comparator definitions
+
+Fixed before any outcome is examined. Section 5 of the protocol.
+
+```{r}
+sedating_classes  <- c()   # therapeutic class codes, fill from MEPS RX codebook
+comparator_classes <- c()  # non-opioid, non-sedating analgesic codes
+
+# TODO: map TC1S1_1 / RXDRGNAM to the class lists above and freeze the mapping.
+```
+
+## Cohort construction
+
+One row per inclusion or exclusion step, in protocol order.
+
+```{r}
+# TODO: build the attrition table. Each step reports n remaining.
+# attrition <- tibble(step = character(), n = integer())
+```
+
+## Table 1
+
+Weighted, standardized mean differences, no p-values.
+
+```{r}
+# design <- svydesign(ids = ~VARPSU, strata = ~VARSTR, weights = ~PERWT, data = cohort, nest = TRUE)
+# tbl_svysummary(design, by = exposure, ...) %>% add_difference(test = everything() ~ "smd")
+```
+
+## Primary model
+
+```{r}
+# svyglm(injury_event ~ exposure + age + sex + ..., design = design, family = quasipoisson())
+```
+
+## Sensitivity analyses
+
+Protocol Section 8, item 5. Narrow outcome, strict new-user rule, complete case.
+
+```{r}
+```
+
+## Negative control outcome
+
+```{r}
+```
+
+## Limitations
+
+Reproduced from Section 9 of the protocol, unchanged. If the analysis revealed a limitation that was not anticipated, it is added here and labeled as post hoc.
+
+## Reproducibility
+
+```{r}
+sessionInfo()
+```

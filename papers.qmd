@@ -1,0 +1,39 @@
+---
+title: "Papers"
+---
+
+<!--
+DO NOT DEPLOY THIS PAGE UNTIL EVERY "PENDING" IS REPLACED.
+Titles, author order, volume, pages, and DOIs must be copied from the locked CV PDF
+or from the journal record. Nothing on this page may be reconstructed from memory.
+-->
+
+Peer-reviewed publications, listed newest first. Each entry has one sentence on why the design is relevant to observational study work.
+
+## Journal articles
+
+**Journal of Immigrant and Minority Health (2026).**
+TITLE PENDING. Authors PENDING. Volume, pages PENDING. DOI PENDING.
+*Design note:* cross-sectional analysis of a hard-to-reach immigrant worker population, with the sampling frame and its limits stated in the paper.
+
+**American Journal of Industrial Medicine (2024).**
+TITLE PENDING. Authors PENDING. Volume, pages PENDING. DOI PENDING.
+*Design note:* exposure classification without direct measurement, and the effect of that misclassification on the estimate.
+
+**American Journal of Industrial Medicine (2024).**
+TITLE PENDING. Authors PENDING. Volume, pages PENDING. DOI PENDING.
+*Design note:* outcome under-reporting in an occupational population, handled explicitly rather than assumed away.
+
+**Journal of Agromedicine (2024).**
+TITLE PENDING. Authors PENDING. Volume, pages PENDING. DOI PENDING.
+*Design note:* seasonal and time-varying exposure structure in an injury outcome.
+
+## Dissertation
+
+**Ahmed R. TITLE PENDING.** PhD dissertation, University of Nebraska Medical Center, 2025. Link PENDING.
+Livestock worker injury. Study design, primary data collection, and analysis.
+
+## Awards
+
+- NIH Research Scholar Award, 2023.
+- Healthy America Grant, year and role PENDING from CV.

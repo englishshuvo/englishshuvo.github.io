@@ -1,0 +1,59 @@
+project:
+  type: website
+  output-dir: _site
+  resources:
+    - CNAME
+    - files/
+
+website:
+  title: "Rishad Ahmed"
+  description: "Applied epidemiologist. Observational studies on linked administrative and surveillance data."
+  site-url: "https://rishadahmed.com"
+  favicon: files/favicon.png
+  open-graph: true
+  navbar:
+    pinned: true
+    left:
+      - href: index.qmd
+        text: Home
+      - text: Work
+        menu:
+          - href: work/rwe.qmd
+            text: "Observational and RWE"
+          - href: work/exposure.qmd
+            text: "Occupational and environmental"
+          - href: work/surveillance.qmd
+            text: "Surveillance systems"
+          - href: work/outcomes.qmd
+            text: "Outcomes and decision evidence"
+      - href: papers.qmd
+        text: Papers
+      - href: methods.qmd
+        text: Methods
+      - href: cv.qmd
+        text: CV
+  page-footer:
+    left: "Rishad Ahmed, PhD, MBA. Lincoln, Nebraska."
+    right:
+      - text: Email
+        href: "mailto:EMAIL_PLACEHOLDER"
+      - text: LinkedIn
+        href: "https://www.linkedin.com/in/rishad-ahmed-a9398579"
+      - text: GitHub
+        href: "https://github.com/GITHUB_USERNAME_PLACEHOLDER"
+      - text: CV (PDF)
+        href: "/files/rishad-ahmed-cv.pdf"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-depth: 2
+    anchor-sections: true
+    link-external-newwindow: true
+    grid:
+      body-width: 900px
+
+execute:
+  freeze: auto

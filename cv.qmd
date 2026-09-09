@@ -1,0 +1,82 @@
+---
+title: "Curriculum vitae"
+subtitle: "Rishad Ahmed, PhD, MBA. Lincoln, Nebraska."
+---
+
+<!--
+This page must match the locked 2-page resume and LinkedIn exactly on employer names and dates.
+EMPLOYER_2017_2019 must be copied from the locked CV PDF. Do not invent a name.
+-->
+
+::: {.btnrow}
+[Download CV (PDF)](files/rishad-ahmed-cv.pdf){.primary}
+[LinkedIn]({{< var linkedin >}})
+[Email](mailto:{{< var email >}})
+:::
+
+::: {.cv}
+
+## Experience
+
+### Surveillance Supervisor, Epidemiologist III
+::: {.meta}
+Nebraska Department of Health and Human Services. Lincoln, Nebraska. September 2025 to present.
+:::
+
+Supervision of overdose, injury, violent death, and highway safety surveillance for a state population of roughly two million. Programs include the prescription drug monitoring program, OD2A, NVDRS, SUDORS, suicide surveillance, EMS data, and syndromic surveillance in ESSENCE. Linkage across prescription drug monitoring, EMS, hospital discharge, vital records, and overdose mapping data. Reporting and coordination with CDC, the Bureau of Justice Assistance, and NHTSA program requirements.
+
+### Graduate Assistant and doctoral researcher
+::: {.meta}
+University of Nebraska Medical Center, College of Public Health. Omaha, Nebraska. August 2021 to August 2025.
+:::
+
+Occupational and environmental epidemiology. Study design, primary data collection, and analysis for four peer-reviewed papers and a dissertation on livestock worker injury. Instrument design in REDCap. Analysis in R, SAS, and STATA.
+
+### EMPLOYER_2017_2019
+::: {.meta}
+Title PENDING. Location PENDING. 2017 to 2019.
+:::
+
+Copy this entry verbatim from the locked resume template.
+
+### Senior Research Analyst
+::: {.meta}
+Institute of Epidemiology, Disease Control and Research (IEDCR). Dhaka, Bangladesh. June 2015 to July 2017.
+:::
+
+National communicable disease surveillance and outbreak investigation support. Data management and analysis for surveillance programs.
+
+## Education
+
+**PhD in Public Health**, University of Nebraska Medical Center, 2021 to July 2025.
+Major in Health Promotion and Disease Prevention. Dissertation on livestock worker injury.
+
+**MBA**, University of Dhaka.
+
+**BBA**, University of Dhaka.
+
+## Selected publications
+
+See [Papers](papers.qmd) for full citations and DOIs.
+
+- *Journal of Immigrant and Minority Health*, 2026.
+- *American Journal of Industrial Medicine*, 2024. Two papers.
+- *Journal of Agromedicine*, 2024.
+
+## Awards
+
+- NIH Research Scholar Award, 2023.
+- Healthy America Grant.
+
+## Technical
+
+**Analysis:** R, SAS, SQL, STATA, SPSS.
+**Reporting and visualization:** Power BI, Tableau, ArcGIS.
+**Data collection:** REDCap.
+**Domains:** record linkage, cohort and cross-sectional design, surveillance systems, administrative and vital records data.
+
+## Contact
+
+Lincoln, Nebraska. {{< var phone >}}. [{{< var email >}}](mailto:{{< var email >}}).
+
+:::

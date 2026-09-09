@@ -1,0 +1,38 @@
+/* Plain, dense, scientist. No decoration that does not carry information. */
+
+:root {
+  --ink: #14181d;
+  --muted: #5a6572;
+  --rule: #dde2e8;
+  --accent: #0b4f6c;
+}
+
+body { color: var(--ink); font-size: 1.02rem; line-height: 1.6; }
+
+h1, h2, h3 { font-weight: 600; letter-spacing: -0.01em; }
+h2 { margin-top: 2.2rem; padding-top: 0.4rem; border-top: 1px solid var(--rule); }
+
+a { color: var(--accent); }
+
+.lede { font-size: 1.18rem; line-height: 1.5; margin: 0.6rem 0 1.1rem 0; }
+.facts { color: var(--muted); font-size: 0.97rem; margin-bottom: 1.4rem; }
+
+.btnrow { margin: 1.2rem 0 2rem 0; }
+.btnrow a {
+  display: inline-block; margin: 0 0.5rem 0.5rem 0; padding: 0.45rem 0.9rem;
+  border: 1px solid var(--accent); border-radius: 3px; text-decoration: none;
+  font-size: 0.95rem;
+}
+.btnrow a.primary { background: var(--accent); color: #fff; }
+
+.cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin: 1rem 0 2rem 0; }
+@media (max-width: 700px) { .cards { grid-template-columns: 1fr; } }
+.card2 { border: 1px solid var(--rule); border-radius: 4px; padding: 1rem 1.1rem; }
+.card2 h3 { margin: 0 0 0.35rem 0; font-size: 1.05rem; }
+.card2 p { margin: 0 0 0.5rem 0; font-size: 0.95rem; color: var(--muted); }
+.card2 a { font-size: 0.92rem; }
+
+.limits { border-left: 3px solid var(--rule); padding-left: 0.9rem; color: var(--muted); font-size: 0.95rem; }
+
+.cv h3 { margin-bottom: 0.1rem; }
+.cv .meta { color: var(--muted); font-size: 0.93rem; margin-bottom: 0.4rem; }
