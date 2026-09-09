@@ -1,6 +1,12 @@
 project:
   type: website
   output-dir: _site
+  render:
+    - "*.qmd"
+    - "work/*.qmd"
+    - "notebooks/**/*.qmd"
+    - "!DO-NOT-PUBLISH.md"
+    - "!README.md"
   resources:
     - CNAME
     - files/
@@ -9,7 +15,6 @@ website:
   title: "Rishad Ahmed"
   description: "Applied epidemiologist. Observational studies on linked administrative and surveillance data."
   site-url: "https://rishadahmed.com"
-  favicon: files/favicon.png
   open-graph: true
   navbar:
     pinned: true

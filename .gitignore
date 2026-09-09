@@ -11,3 +11,7 @@
 *.sas7bdat
 *.sav
 *.dta
+
+**/*.quarto_ipynb
+
+/.claude/

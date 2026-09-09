@@ -24,7 +24,7 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
         with:
-          version: 1.5.57
+          version: 1.10.18
 
       # Uncomment once the notebook actually executes R code at build time.
       # Until then, notebooks use freeze and the committed _freeze directory.
