@@ -106,7 +106,7 @@ The prevalence ratio is `svycontrast` of short prevalence divided by reference p
 
 People outside a level contribute zeros. They are not deleted before the design is declared. Deleting them and calling `svydesign` again is not the reported variance.
 
-Cross-check: `survey::subset` to the short and reference rows with an observed outcome, then the same contrast. Stop if the differences differ by more than 0.0001 on the probability scale (0.01 percentage points), or if the standard errors differ by more than 5 percent relative.
+Cross-check: `subset()` on the design, which dispatches to `subset.survey.design`, keeping the short and reference rows with an observed outcome, then the same contrast. `subset` is the base generic. It is not exported as `survey::subset`. Stop if the differences differ by more than 0.0001 on the probability scale (0.01 percentage points), or if the standard errors differ by more than 5 percent relative.
 
 ## Secondary estimator
 

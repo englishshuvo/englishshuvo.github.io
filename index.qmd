@@ -47,7 +47,7 @@ Multi-source overdose and injury surveillance for a state of roughly two million
 
 ::: {.card2}
 ### Outcomes and decision evidence
-Burden and outcome tables built from public data to answer a specific program question, with the assumptions written down next to the numbers.
+Burden and outcome tables built from public data to answer a specific program question, with the assumptions written down next to the numbers. Includes a finished BRFSS 2022 case study of usual sleep and frequent mental distress.
 
 [Read more](work/outcomes.qmd)
 :::

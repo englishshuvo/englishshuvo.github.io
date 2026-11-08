@@ -55,14 +55,14 @@ write_results_markdown <- function(estimates, path) {
   lines <- c(
     "### Weighted prevalence of frequent mental distress",
     "",
-    "| Usual sleep | Unweighted note | Prevalence | 95% CI |",
-    "| --- | --- | ---: | --- |"
+    "| Usual sleep | Prevalence | 95% CI |",
+    "| --- | ---: | --- |"
   )
   label <- c(short = "Under 7 hours", reference = "7 to 9 hours", long = "10 to 24 hours, descriptive")
   for (g in c("short", "reference", "long")) {
     x <- p$levels[[g]]
     lines <- c(lines, sprintf(
-      "| %s | Design-based | %s | %s to %s |",
+      "| %s | %s | %s to %s |",
       label[[g]], fmt_pct(x$estimate_pp), fmt_pct(x$ci_low_pp), fmt_pct(x$ci_high_pp)
     ))
   }

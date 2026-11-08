@@ -135,7 +135,7 @@ The two population changes, extreme hours and the 7 to 8 hour reference, are als
 
 ## 12. What would stop the run
 
-The pipeline stops before any contrast if the record count is not 445,132, if a codebook frequency for `SLEPTIM1`, `MENTHLTH`, `_MENT14D`, or `SEXVAR` does not match, if the derived outcome disagrees with `_MENT14D`, if a weight is missing or not positive, if a stratum maps to more than one state, or if an unexpected state code appears. A later gate stops the write-up if the full-design difference and the same difference after `survey::subset` disagree by more than 0.01 percentage points, or if their standard errors disagree by more than 5 percent relative.
+The pipeline stops before any contrast if the record count is not 445,132, if a codebook frequency for `SLEPTIM1`, `MENTHLTH`, `_MENT14D`, or `SEXVAR` does not match, if the derived outcome disagrees with `_MENT14D`, if a weight is missing or not positive, if a stratum maps to more than one state, or if an unexpected state code appears. A later gate stops the write-up if the full-design difference and the same difference after `subset()` on the design disagree by more than 0.01 percentage points, or if their standard errors disagree by more than 5 percent relative.
 
 ## 13. What I will not claim
 

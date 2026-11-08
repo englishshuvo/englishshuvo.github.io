@@ -18,6 +18,11 @@ work/outcomes.qmd               P4 outcomes and decision evidence
 notebooks/rwe-protocol/
   protocol.qmd                  study protocol on MEPS public data
   analysis.qmd                  analysis notebook implementing it
+notebooks/brfss-2022-sleep-fmd/
+  protocol.qmd                  BRFSS 2022 sleep and frequent distress protocol
+  sap.qmd                       statistical analysis plan, locked before estimation
+  case-study.qmd                executed case study
+studies/brfss-2022-sleep-fmd/   R pipeline, tests, aggregate outputs
 files/                          CV PDF, favicon, other static assets
 styles.css                      site styles
 .github/workflows/publish.yml   render and deploy to GitHub Pages

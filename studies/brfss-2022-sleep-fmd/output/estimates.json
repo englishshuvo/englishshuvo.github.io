@@ -1,0 +1,553 @@
+{
+  "flow": [
+    {
+      "step": "1. All LLCP2022 records",
+      "unweighted_n": 445132,
+      "weighted_n": 264789594,
+      "note": "Published file, all reporting areas.",
+      "unweighted_excluded_from_previous": null
+    },
+    {
+      "step": "2. 50 states and DC",
+      "unweighted_n": 435826,
+      "weighted_n": 261669771,
+      "note": "Allow-list of state FIPS codes. DC is included. Guam, Puerto Rico, and the US Virgin Islands are removed.",
+      "unweighted_excluded_from_previous": 9306
+    },
+    {
+      "step": "3. Valid usual sleep, 1 to 24 hours",
+      "unweighted_n": 430578,
+      "weighted_n": 257934505.57347941,
+      "note": "SLEPTIM1 codes 77, 99, and blank are missing. Long sleep stays in this row.",
+      "unweighted_excluded_from_previous": 5248
+    },
+    {
+      "step": "4. Contrast groups, under 7 hours or 7 to 9 hours",
+      "unweighted_n": 415191,
+      "weighted_n": 248834915.78856727,
+      "note": "Long sleep, 10 to 24 hours, is not in the primary contrast.",
+      "unweighted_excluded_from_previous": 15387
+    },
+    {
+      "step": "5. Observed mental-health days",
+      "unweighted_n": 407452,
+      "weighted_n": 243369067.43107921,
+      "note": "Primary analytic sample. MENTHLTH 77, 99, and blank are missing.",
+      "unweighted_excluded_from_previous": 7739
+    },
+    {
+      "step": "6. Observed age group and sex",
+      "unweighted_n": 399500,
+      "weighted_n": 238447438.25438207,
+      "note": "Secondary sample. _AGEG5YR code 14 is missing. SEXVAR must be 1 or 2.",
+      "unweighted_excluded_from_previous": 7952
+    }
+  ],
+  "missingness": [
+    {
+      "item": "Sleep missing (77, 99, or blank)",
+      "population": "50 states and DC",
+      "unweighted_n": 5248,
+      "unweighted_denominator": 435826,
+      "weighted_share_of_population": 0.014274730368
+    },
+    {
+      "item": "Sleep reported below 3 hours",
+      "population": "50 states and DC",
+      "unweighted_n": 2636,
+      "unweighted_denominator": 435826,
+      "weighted_share_of_population": 0.0072315979505
+    },
+    {
+      "item": "Sleep reported above 12 hours",
+      "population": "50 states and DC",
+      "unweighted_n": 1519,
+      "unweighted_denominator": 435826,
+      "weighted_share_of_population": 0.0039609268507
+    },
+    {
+      "item": "Outcome missing among short sleep",
+      "population": "Valid short sleep",
+      "unweighted_n": 3130,
+      "unweighted_denominator": 140665,
+      "weighted_share_of_population": 0.024073471607
+    },
+    {
+      "item": "Outcome missing among 7 to 9 hours",
+      "population": "Valid 7 to 9 hour sleep",
+      "unweighted_n": 4609,
+      "unweighted_denominator": 274526,
+      "weighted_share_of_population": 0.020708908184
+    },
+    {
+      "item": "Outcome missing among long sleep",
+      "population": "Valid long sleep",
+      "unweighted_n": 434,
+      "unweighted_denominator": 15387,
+      "weighted_share_of_population": 0.034140141087
+    },
+    {
+      "item": "Age group missing",
+      "population": "Primary contrast sample",
+      "unweighted_n": 7952,
+      "unweighted_denominator": 407452,
+      "weighted_share_of_population": 0.020222903546
+    },
+    {
+      "item": "Sex missing",
+      "population": "Primary contrast sample",
+      "unweighted_n": 0,
+      "unweighted_denominator": 407452,
+      "weighted_share_of_population": 0
+    }
+  ],
+  "primary": {
+    "levels": {
+      "short": {
+        "group": "short",
+        "estimate": 0.23427291011,
+        "se": 0.0023586079453,
+        "ci_low": 0.22965012348,
+        "ci_high": 0.23889569673,
+        "estimate_pp": 23.4272910107,
+        "se_pp": 0.23586079453,
+        "ci_low_pp": 22.9650123481,
+        "ci_high_pp": 23.8895696734
+      },
+      "reference": {
+        "group": "reference",
+        "estimate": 0.10606732394,
+        "se": 0.001284045057,
+        "ci_low": 0.10355064187,
+        "ci_high": 0.10858400601,
+        "estimate_pp": 10.6067323939,
+        "se_pp": 0.1284045057,
+        "ci_low_pp": 10.3550641873,
+        "ci_high_pp": 10.8584006005
+      },
+      "long": {
+        "group": "long",
+        "estimate": 0.24394371933,
+        "se": 0.0075193680167,
+        "ci_low": 0.22920602883,
+        "ci_high": 0.25868140983,
+        "estimate_pp": 24.394371933,
+        "se_pp": 0.75193680167,
+        "ci_low_pp": 22.9206028831,
+        "ci_high_pp": 25.868140983
+      }
+    },
+    "difference": {
+      "label": "difference",
+      "estimate": 0.12820558617,
+      "se": 0.0026859896837,
+      "ci_low": 0.12294114313,
+      "ci_high": 0.13347002921,
+      "estimate_pp": 12.8205586168,
+      "se_pp": 0.26859896837,
+      "ci_low_pp": 12.2941143125,
+      "ci_high_pp": 13.3470029211
+    },
+    "prevalence_ratio": {
+      "label": "ratio",
+      "estimate": 2.2087189665,
+      "se": 0.034784639305,
+      "ci_low": 2.1405423262,
+      "ci_high": 2.2768956067,
+      "estimate_pp": 220.8718966474,
+      "se_pp": 3.4784639305,
+      "ci_low_pp": 214.054232622,
+      "ci_high_pp": 227.6895606727
+    },
+    "covariance": {
+      "groups": ["short", "reference", "long"],
+      "covariance": [
+        [5.5630314398e-06, -1.3687165097e-09, -2.0746769839e-09],
+        [-1.3687165097e-09, 1.6487717083e-06, -3.3875283666e-09],
+        [-2.0746769839e-09, -3.3875283666e-09, 5.6540895371e-05]
+      ]
+    },
+    "df": 433581,
+    "lonely_psu": "adjust"
+  },
+  "lonely": {
+    "adjust": {
+      "label": "difference",
+      "estimate": 0.12820558617,
+      "se": 0.0026859896837,
+      "ci_low": 0.12294114313,
+      "ci_high": 0.13347002921,
+      "estimate_pp": 12.8205586168,
+      "se_pp": 0.26859896837,
+      "ci_low_pp": 12.2941143125,
+      "ci_high_pp": 13.3470029211
+    },
+    "average": {
+      "label": "difference",
+      "estimate": 0.12820558617,
+      "se": 0.0027501721065,
+      "ci_low": 0.12281534789,
+      "ci_high": 0.13359582445,
+      "estimate_pp": 12.8205586168,
+      "se_pp": 0.27501721065,
+      "ci_low_pp": 12.2815347888,
+      "ci_high_pp": 13.3595824448
+    },
+    "remove": {
+      "label": "difference",
+      "estimate": 0.12820558617,
+      "se": 0.0026819497714,
+      "ci_low": 0.12294906121,
+      "ci_high": 0.13346211113,
+      "estimate_pp": 12.8205586168,
+      "se_pp": 0.26819497714,
+      "ci_low_pp": 12.2949061208,
+      "ci_high_pp": 13.3462111129
+    }
+  },
+  "independent_ids": {
+    "label": "difference",
+    "estimate": 0.12820558617,
+    "se": 0.0026859896837,
+    "ci_low": 0.12294114313,
+    "ci_high": 0.13347002921,
+    "estimate_pp": 12.8205586168,
+    "se_pp": 0.26859896837,
+    "ci_low_pp": 12.2941143125,
+    "ci_high_pp": 13.3470029211
+  },
+  "subset_check": {
+    "difference": {
+      "label": "difference",
+      "estimate": 0.12820558617,
+      "se": 0.0026859896837,
+      "ci_low": 0.12294114313,
+      "ci_high": 0.13347002921,
+      "estimate_pp": 12.8205586168,
+      "se_pp": 0.26859896837,
+      "ci_low_pp": 12.2941143125,
+      "ci_high_pp": 13.3470029211
+    },
+    "n_rows": 407452,
+    "n_parent": 435826,
+    "singleton_strata": 105,
+    "absolute_difference_gap": 5.5511151231e-17,
+    "relative_se_gap": 3.2292072574e-16
+  },
+  "bounds": {
+    "assumption": "manski_no_assumption_outcome_bounded_0_1",
+    "level_a": {
+      "lower": {
+        "label": "num_La/den_a",
+        "estimate": 0.22863314786,
+        "se": 0.0023109280576,
+        "ci_low": 0.22410381209,
+        "ci_high": 0.23316248362,
+        "estimate_pp": 22.8633147858,
+        "se_pp": 0.23109280576,
+        "ci_low_pp": 22.4103812094,
+        "ci_high_pp": 23.3162483621
+      },
+      "upper": {
+        "label": "num_Ua/den_a",
+        "estimate": 0.25270661946,
+        "se": 0.0024074605631,
+        "ci_low": 0.24798808347,
+        "ci_high": 0.25742515546,
+        "estimate_pp": 25.2706619464,
+        "se_pp": 0.24074605631,
+        "ci_low_pp": 24.7988083467,
+        "ci_high_pp": 25.7425155462
+      }
+    },
+    "level_b": {
+      "lower": {
+        "label": "num_Lb/den_b",
+        "estimate": 0.10387078547,
+        "se": 0.0012598675159,
+        "ci_low": 0.10140149051,
+        "ci_high": 0.10634008042,
+        "estimate_pp": 10.3870785466,
+        "se_pp": 0.12598675159,
+        "ci_low_pp": 10.140149051,
+        "ci_high_pp": 10.6340080423
+      },
+      "upper": {
+        "label": "num_Ub/den_b",
+        "estimate": 0.12457969365,
+        "se": 0.0014200022514,
+        "ci_low": 0.12179654038,
+        "ci_high": 0.12736284692,
+        "estimate_pp": 12.457969365,
+        "se_pp": 0.14200022514,
+        "ci_low_pp": 12.179654038,
+        "ci_high_pp": 12.7362846921
+      }
+    },
+    "difference": {
+      "lower": {
+        "label": "num_La/den_a - num_Ub/den_b",
+        "estimate": 0.10405345421,
+        "se": 0.0027128430231,
+        "ci_low": 0.098736379586,
+        "ci_high": 0.10937052883,
+        "estimate_pp": 10.4053454207,
+        "se_pp": 0.27128430231,
+        "ci_low_pp": 9.8736379586,
+        "ci_high_pp": 10.9370528828
+      },
+      "upper": {
+        "label": "num_Ua/den_a - num_Lb/den_b",
+        "estimate": 0.148835834,
+        "se": 0.0027180127273,
+        "ci_low": 0.14350862694,
+        "ci_high": 0.15416304105,
+        "estimate_pp": 14.8835833998,
+        "se_pp": 0.27180127273,
+        "ci_low_pp": 14.3508626943,
+        "ci_high_pp": 15.4163041053
+      }
+    }
+  },
+  "extreme": {
+    "label": "difference",
+    "estimate": 0.12683777142,
+    "se": 0.002689671949,
+    "ci_low": 0.12156611127,
+    "ci_high": 0.13210943157,
+    "estimate_pp": 12.6837771416,
+    "se_pp": 0.2689671949,
+    "ci_low_pp": 12.1566111266,
+    "ci_high_pp": 13.2109431566
+  },
+  "ref78": {
+    "label": "difference",
+    "estimate": 0.13046090954,
+    "se": 0.0027082887345,
+    "ci_low": 0.12515276116,
+    "ci_high": 0.13576905792,
+    "estimate_pp": 13.0460909542,
+    "se_pp": 0.27082887345,
+    "ci_low_pp": 12.5152761163,
+    "ci_high_pp": 13.5769057922
+  },
+  "secondary": {
+    "n_unweighted": 399500,
+    "weighted_n": 238447438.25438207,
+    "singleton_strata": 109,
+    "margins": {
+      "exposed": {
+        "label": "short",
+        "estimate": 0.23262125847,
+        "se": 0.0023319623727,
+        "df": null,
+        "ci_low": 0.2280506962,
+        "ci_high": 0.23719182073,
+        "estimate_pp": 23.2621258468,
+        "se_pp": 0.23319623727,
+        "ci_low_pp": 22.8050696204,
+        "ci_high_pp": 23.7191820732
+      },
+      "unexposed": {
+        "label": "reference",
+        "estimate": 0.10755255679,
+        "se": 0.0012941397767,
+        "df": null,
+        "ci_low": 0.10501608944,
+        "ci_high": 0.11008902415,
+        "estimate_pp": 10.7552556794,
+        "se_pp": 0.12941397767,
+        "ci_low_pp": 10.5016089441,
+        "ci_high_pp": 11.0089024147
+      },
+      "difference": {
+        "label": "difference",
+        "estimate": 0.12506870167,
+        "se": 0.0026769449995,
+        "df": null,
+        "ci_low": 0.11982198589,
+        "ci_high": 0.13031541746,
+        "estimate_pp": 12.5068701674,
+        "se_pp": 0.26769449995,
+        "ci_low_pp": 11.9821985887,
+        "ci_high_pp": 13.0315417462
+      },
+      "se_difference_if_independent": 0.002666991989,
+      "variance_method": "delta_method_on_survey_coefficient_covariance_fixed_standard_population"
+    },
+    "odds_ratio": {
+      "estimate": 2.5878977922,
+      "ci_low": 2.4910535968,
+      "ci_high": 2.6885069801,
+      "role": "Coefficient from the working logistic model. Not the estimand. Not a prevalence ratio."
+    },
+    "age_coefficients_log_odds": {
+      "(Intercept)": -1.7253682606,
+      "short": 0.95084588287,
+      "age_f2": -0.24074460578,
+      "age_f3": -0.4232091055,
+      "age_f4": -0.617060489,
+      "age_f5": -0.70876392817,
+      "age_f6": -0.71834796955,
+      "age_f7": -0.85276033507,
+      "age_f8": -0.82846448224,
+      "age_f9": -0.98229655969,
+      "age_f10": -1.1599430376,
+      "age_f11": -1.2185872791,
+      "age_f12": -1.3353156345,
+      "age_f13": -1.4714133869,
+      "sex_f2": 0.4849164967
+    }
+  },
+  "secondary_extreme": {
+    "n_unweighted": 397021,
+    "weighted_n": 236685259.10382217,
+    "singleton_strata": 107,
+    "margins": {
+      "exposed": {
+        "label": "short",
+        "estimate": 0.23120766452,
+        "se": 0.0023379590331,
+        "df": null,
+        "ci_low": 0.22662534902,
+        "ci_high": 0.23578998002,
+        "estimate_pp": 23.1207664518,
+        "se_pp": 0.23379590331,
+        "ci_low_pp": 22.6625349015,
+        "ci_high_pp": 23.578998002
+      },
+      "unexposed": {
+        "label": "reference",
+        "estimate": 0.10753618537,
+        "se": 0.0012940099221,
+        "df": null,
+        "ci_low": 0.10499997253,
+        "ci_high": 0.11007239821,
+        "estimate_pp": 10.7536185369,
+        "se_pp": 0.12940099221,
+        "ci_low_pp": 10.4999972526,
+        "ci_high_pp": 11.0072398212
+      },
+      "difference": {
+        "label": "difference",
+        "estimate": 0.12367147915,
+        "se": 0.0026828051073,
+        "df": null,
+        "ci_low": 0.11841327776,
+        "ci_high": 0.12892968054,
+        "estimate_pp": 12.3671479149,
+        "se_pp": 0.26828051073,
+        "ci_low_pp": 11.8413277761,
+        "ci_high_pp": 12.8929680537
+      },
+      "se_difference_if_independent": 0.0026721740436,
+      "variance_method": "delta_method_on_survey_coefficient_covariance_fixed_standard_population"
+    },
+    "odds_ratio": {
+      "estimate": 2.5679441993,
+      "ci_low": 2.4714897728,
+      "ci_high": 2.668162937,
+      "role": "Coefficient from the working logistic model. Not the estimand. Not a prevalence ratio."
+    },
+    "age_coefficients_log_odds": {
+      "(Intercept)": -1.7244445898,
+      "short": 0.94310565637,
+      "age_f2": -0.23382813092,
+      "age_f3": -0.42824379919,
+      "age_f4": -0.62046599075,
+      "age_f5": -0.71571841455,
+      "age_f6": -0.73120417153,
+      "age_f7": -0.85872269676,
+      "age_f8": -0.83336980906,
+      "age_f9": -0.9878647407,
+      "age_f10": -1.1653453973,
+      "age_f11": -1.2176112897,
+      "age_f12": -1.3315865885,
+      "age_f13": -1.477446152,
+      "sex_f2": 0.48807658857
+    }
+  },
+  "secondary_ref78": {
+    "n_unweighted": 379281,
+    "weighted_n": 227965810.76470217,
+    "singleton_strata": 110,
+    "margins": {
+      "exposed": {
+        "label": "short",
+        "estimate": 0.23254263943,
+        "se": 0.0023294134522,
+        "df": null,
+        "ci_low": 0.22797707296,
+        "ci_high": 0.2371082059,
+        "estimate_pp": 23.2542639433,
+        "se_pp": 0.23294134522,
+        "ci_low_pp": 22.7977072961,
+        "ci_high_pp": 23.7108205904
+      },
+      "unexposed": {
+        "label": "reference",
+        "estimate": 0.10544660569,
+        "se": 0.0013378325459,
+        "df": null,
+        "ci_low": 0.10282450208,
+        "ci_high": 0.1080687093,
+        "estimate_pp": 10.5446605692,
+        "se_pp": 0.13378325459,
+        "ci_low_pp": 10.2824502085,
+        "ci_high_pp": 10.80687093
+      },
+      "difference": {
+        "label": "difference",
+        "estimate": 0.12709603374,
+        "se": 0.002694326732,
+        "df": null,
+        "ci_low": 0.12181525038,
+        "ci_high": 0.1323768171,
+        "estimate_pp": 12.7096033741,
+        "se_pp": 0.2694326732,
+        "ci_low_pp": 12.1815250383,
+        "ci_high_pp": 13.2376817098
+      },
+      "se_difference_if_independent": 0.0026862544466,
+      "variance_method": "delta_method_on_survey_coefficient_covariance_fixed_standard_population"
+    },
+    "odds_ratio": {
+      "estimate": 2.6467939181,
+      "ci_low": 2.5453195078,
+      "ci_high": 2.7523138149,
+      "role": "Coefficient from the working logistic model. Not the estimand. Not a prevalence ratio."
+    },
+    "age_coefficients_log_odds": {
+      "(Intercept)": -1.7402003437,
+      "short": 0.97334906532,
+      "age_f2": -0.24660830564,
+      "age_f3": -0.42414688057,
+      "age_f4": -0.64042458325,
+      "age_f5": -0.72496140137,
+      "age_f6": -0.73216540791,
+      "age_f7": -0.86431487078,
+      "age_f8": -0.83872912694,
+      "age_f9": -0.99583518332,
+      "age_f10": -1.1898920259,
+      "age_f11": -1.2419663558,
+      "age_f12": -1.3382260501,
+      "age_f13": -1.4780905538,
+      "sex_f2": 0.49056106318
+    }
+  },
+  "df": 433581,
+  "timings_sec": {
+    "design, nested _PSU, lonely.psu=adjust": 2.784,
+    "primary prevalence difference": 300.968,
+    "singleton sensitivity, average": 293.995,
+    "singleton sensitivity, remove": 298.359,
+    "cross-check, ids=~1": 14.459,
+    "cross-check, subset then the same contrast": 318.304,
+    "outcome-missingness bounds": 301.862,
+    "sensitivity, exclude hours below 3 or above 12": 324.974,
+    "sensitivity, 7 to 8 hour reference": 308.413,
+    "secondary age and sex margins": 283.081,
+    "secondary margins, extreme-sleep exclusion": 232.132,
+    "secondary margins, 7 to 8 hour reference": 213.172
+  }
+}

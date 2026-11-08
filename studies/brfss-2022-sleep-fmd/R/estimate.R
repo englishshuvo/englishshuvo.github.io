@@ -8,7 +8,16 @@ timed <- function(label, expr) {
   value <- force(expr)
   elapsed <- proc.time()[["elapsed"]] - t0
   message(sprintf("Done: %s (%.1f seconds)", label, elapsed))
+  flush(stderr())
   ESTIMATE_TIMINGS[[label]] <<- elapsed
+  value
+}
+
+checkpoint_result <- function(name, value) {
+  root <- Sys.getenv("BRFSS_STUDY_ROOT", unset = "")
+  if (!nzchar(root)) return(value)
+  dir.create(file.path(root, "data", "intermediate"), recursive = TRUE, showWarnings = FALSE)
+  saveRDS(value, file.path(root, "data", "intermediate", paste0("ckpt-", name, ".rds")))
   value
 }
 
@@ -127,18 +136,18 @@ estimate_all <- function(prep) {
   des <- timed("design, nested _PSU, lonely.psu=adjust", {
     make_geo_design(prep, lonely = "adjust", ids = "psu")
   })
-  primary <- timed("primary prevalence difference", {
+  primary <- checkpoint_result("primary", timed("primary prevalence difference", {
     prevalence_contrast(des, "sleep_group", "fmd", extra_levels = "long")
-  })
+  }))
 
   options(survey.lonely.psu = "average")
-  lonely_average <- timed("singleton sensitivity, average", {
+  lonely_average <- checkpoint_result("lonely-average", timed("singleton sensitivity, average", {
     prevalence_contrast(des, "sleep_group", "fmd", extra_levels = character())
-  })
+  }))
   options(survey.lonely.psu = "remove")
-  lonely_remove <- timed("singleton sensitivity, remove", {
+  lonely_remove <- checkpoint_result("lonely-remove", timed("singleton sensitivity, remove", {
     prevalence_contrast(des, "sleep_group", "fmd", extra_levels = character())
-  })
+  }))
   options(survey.lonely.psu = "adjust")
 
   independent <- timed("cross-check, ids=~1", {
@@ -146,8 +155,9 @@ estimate_all <- function(prep) {
     prevalence_contrast(des_i, "sleep_group", "fmd", extra_levels = character())
   })
 
-  subset_check <- timed("cross-check, survey::subset then the same contrast", {
-    sub <- survey::subset(
+  subset_check <- timed("cross-check, subset then the same contrast", {
+    # subset() is the base generic. survey registers subset.survey.design.
+    sub <- subset(
       des,
       !is.na(sleep_group) & sleep_group %in% c("short", "reference") & !is.na(fmd)
     )

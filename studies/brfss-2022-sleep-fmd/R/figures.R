@@ -32,6 +32,7 @@ write_primary_figure <- function(primary, path) {
       width = 0.12, linewidth = 0.6, color = "#0b4f6c"
     ) +
     ggplot2::geom_point(size = 2.8, color = "#0b4f6c") +
+    ggplot2::scale_y_continuous(limits = c(0, 30), breaks = seq(0, 30, by = 5)) +
     ggplot2::labs(
       title = "Frequent mental distress by usual hours of sleep",
       subtitle = "Adults in the 50 states and the District of Columbia, BRFSS 2022",
