@@ -79,8 +79,23 @@ expect_equal(
 expect_equal(
   bounds$difference$upper$estimate,
   0.8 - 4 / 12,
-  "upper difference uses the assignment that widens the contrast",
+  "upper difference is upper short minus lower reference",
   tol = 1e-8
+)
+# Same-direction assignment is not the sharp bound for the difference.
+# All missing set to 0: short lower minus reference lower.
+# All missing set to 1: short upper minus reference upper.
+same_zero <- bounds$level_a$lower$estimate - bounds$level_b$lower$estimate
+same_one <- bounds$level_a$upper$estimate - bounds$level_b$upper$estimate
+expect_true(
+  bounds$difference$lower$estimate < min(same_zero, same_one) - 1e-8 &&
+    bounds$difference$upper$estimate > max(same_zero, same_one) + 1e-8,
+  "same-direction missingness assignments sit strictly inside the sharp difference bounds"
+)
+expect_true(
+  grepl("reference outcomes set to 1", bounds$assignment$lower_difference) &&
+    grepl("reference outcomes set to 0", bounds$assignment$upper_difference),
+  "bound labels name the opposite assignments"
 )
 # Width of a group bound equals the weighted share missing.
 expect_equal(
@@ -105,6 +120,11 @@ expect_equal(mar$exposed$estimate, 0.8, "margin at short sleep matches the group
 expect_equal(mar$unexposed$estimate, 1 / 3, "margin at reference sleep matches the group mean", tol = 1e-6)
 expect_equal(mar$difference$estimate, 0.8 - 1 / 3, "saturated margin difference matches the crude difference", tol = 1e-6)
 expect_equal(mar$difference$se, got$difference$se, "saturated margin SE matches the design-based difference SE", tol = 1e-5)
+expect_equal(mar$difference$df, survey::degf(des), "margin interval uses the survey design degrees of freedom", tol = 1e-8)
+expect_true(
+  grepl("fixed_standard_population", mar$variance_method),
+  "margin variance is labeled as conditional on a fixed standard population"
+)
 expect_true(
   abs(mar$difference$se - mar$se_difference_if_independent) > 1e-8,
   "margin difference SE is not the independent sum of the two margin SEs"

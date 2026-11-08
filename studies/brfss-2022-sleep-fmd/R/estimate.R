@@ -98,6 +98,7 @@ fit_secondary <- function(prep) {
     ids = ~psu, strata = ~ststr, weights = ~wt, data = d, nest = TRUE
   )
   n_single <- sum(tapply(d$psu, d$ststr, function(x) length(unique(x))) == 1)
+  design_df <- survey::degf(des)
   mod <- survey::svyglm(
     fmd ~ short + age_f + sex_f,
     design = des,
@@ -109,6 +110,8 @@ fit_secondary <- function(prep) {
     n_unweighted = nrow(d),
     weighted_n = sum(d$wt),
     singleton_strata = n_single,
+    design_df = design_df,
+    margin_variance = "delta method on the survey coefficient covariance, conditional on the observed age and sex distribution as a fixed standard population",
     margins = mar,
     odds_ratio = list(
       estimate = unname(exp(stats::coef(mod)[["short"]])),

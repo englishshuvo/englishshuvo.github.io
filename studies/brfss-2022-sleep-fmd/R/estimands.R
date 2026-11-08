@@ -125,11 +125,13 @@ unpack_rates <- function(rates) {
   out
 }
 
-# Manski bounds for the prevalence difference when the outcome is missing.
-# No assumption about the missing answers other than that a prevalence is between 0 and 1.
-# Lower difference: missing short-sleep outcomes set to 0 and missing reference outcomes set to 1.
-# Upper difference: the opposite assignment.
-# People with an undefined sleep group are not in either bound.
+# Sharp bounds for the prevalence difference when the outcome is missing.
+# The only assumption is that a missing answer is 0 or 1.
+# The sharp lower bound for short minus reference uses opposite assignments:
+# missing short-sleep outcomes set to 0, missing reference outcomes set to 1.
+# The sharp upper bound swaps those two assignments.
+# Setting every missing answer in both groups to the same value is not the sharp
+# bound for the difference. People with an undefined sleep group stay out.
 outcome_missing_bounds <- function(design, group, outcome,
                                    level_a = "short", level_b = "reference") {
   g <- design$variables[[group]]
@@ -160,7 +162,14 @@ outcome_missing_bounds <- function(design, group, outcome,
     level_a = list(lower = unpack_stat(la, "num_La/den_a"), upper = unpack_stat(ua, "num_Ua/den_a")),
     level_b = list(lower = unpack_stat(lb, "num_Lb/den_b"), upper = unpack_stat(ub, "num_Ub/den_b")),
     difference = list(lower = unpack_stat(lower, "num_La/den_a - num_Ub/den_b"),
-                      upper = unpack_stat(upper, "num_Ua/den_a - num_Lb/den_b"))
+                      upper = unpack_stat(upper, "num_Ua/den_a - num_Lb/den_b")),
+    assignment = list(
+      lower_difference = "missing short outcomes set to 0 and missing reference outcomes set to 1",
+      upper_difference = "missing short outcomes set to 1 and missing reference outcomes set to 0",
+      not_used = "setting missing outcomes in both groups to the same value is not the sharp bound"
+    ),
+    interval_type = "identification_bounds_not_a_confidence_interval",
+    endpoint_intervals = "sampling confidence intervals for each endpoint, not the identification interval"
   )
 }
 
@@ -201,10 +210,14 @@ predictive_margin_difference <- function(model, data, weights, exposure = "short
   g_diff <- exposed$g - unexposed$g
   se <- function(g) sqrt(as.numeric(drop(t(g) %*% V %*% g)))
   pack <- function(mu, se_mu, label) {
-    # Normal critical value. The survey t critical value is applied by the caller
-    # when a design df is supplied via attr, but the probability-scale Wald
-    # interval here uses the model df if present, else Inf (normal).
-    df <- tryCatch(survey::degf(model), error = function(e) Inf)
+    # svyglm has no degf() method. The design degrees of freedom live on
+    # model$survey.design. With hundreds of thousands of degrees of freedom
+    # the t quantile matches the normal quantile at displayed precision.
+    # A plain glm has no survey design, and the interval is then normal.
+    df <- Inf
+    if (!is.null(model$survey.design)) {
+      df <- tryCatch(survey::degf(model$survey.design), error = function(e) Inf)
+    }
     if (!is.finite(df) || df <= 0) df <- Inf
     crit <- if (is.finite(df)) stats::qt(0.975, df) else stats::qnorm(0.975)
     list(

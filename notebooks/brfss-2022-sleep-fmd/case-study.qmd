@@ -4,7 +4,7 @@ subtitle: "A cross-sectional contrast in the 2022 BRFSS public-use file"
 date: last-modified
 ---
 
-This is independent sample work on a public CDC survey. I wrote the [protocol](protocol.qmd) and the [statistical analysis plan](sap.qmd) before fitting the contrast. It is not work I did for an employer, not a product of Nebraska DHHS, and not a regulated submission. It is also not a claims-based study. There is no enrollment window and no diagnosis code.
+This is independent sample work on a public CDC survey. I wrote the [protocol](protocol.qmd) and the [statistical analysis plan](sap.qmd) before fitting the contrast. A later [amendment note](amendments.qmd) records wording clarifications made after the estimates existed. It does not change the estimands. It is not work I did for an employer, not a product of Nebraska DHHS, and not a regulated submission. It is also not a claims-based study. There is no enrollment window and no diagnosis code.
 
 The question is descriptive. Among adults in the 50 states and the District of Columbia, how much more common is frequent mental distress in people who report a usual sleep of under 7 hours than in people who report 7 to 9 hours? Both answers come from the same telephone interview. The file does not order one before the other.
 
@@ -55,7 +55,7 @@ That example sets `id = ~1` instead of clustering on `_PSU`. The prose and the S
 
 The covariance of the two prevalences was estimated with the ratios, not assumed to be zero. At this sample size it is negligible next to the variances. The subset cross-check, which keeps only the 407,452 complete contrast rows and refits the same difference, matched the primary estimate and its standard error. The absolute gap was numerical noise. I still report the full-design ratio. Agreement here is a property of this file, where clusters have size one and the groups are large, not a reason to delete cases first as a habit.
 
-Degrees of freedom for the t interval are 433,581. The critical value is 1.96 for any practical purpose.
+The primary confidence intervals are survey t intervals on the full state and DC design. That design has 435,826 primary sampling units and 2,245 strata, so the degrees of freedom are 433,581. The 0.975 quantile of that t distribution is 1.960, the same as the normal value at the two decimals used here. The age and sex intervals use the secondary design, which has 399,500 sampling units and 2,229 strata, so 397,271 degrees of freedom. That count is stored with the margins. It is large enough that the displayed interval matches a normal interval. It is not 433,581.
 
 The transport file has 328 columns. The landing page says 326, and it labels the zip as 64.3 MB. The object at the official URL on 8 November 2026 was 84,614,105 bytes, SHA-256 `b6319c949b7289f8020fc903c3c2d38fe7e0b28ad703dcd81547f5cd0c0dcfeb`, with a trailing space on the inner member name. The record count and the codebook frequencies for the analysis items match. I treated the page's size and column count as stale labels, and I pinned the hash so a later, different file stops the run.
 
@@ -69,7 +69,7 @@ That standardized difference is 12.51 percentage points (95% CI 11.98 to 13.03).
 
 The odds ratio on the short-sleep coefficient is 2.59 (95% CI 2.49 to 2.69). The ratio of the two standardized prevalences is 2.16. The unadjusted prevalence ratio is 2.21. The odds ratio is larger than either, which is what a logistic model does when the outcome is this common. I keep it in the output file so it can be checked. The result I would quote is the difference in percentage points.
 
-The standard error of the standardized difference uses the joint covariance of the two margins. Treating the margins as independent samples would have changed that standard error only in the fourth digit here. The calculation does not rely on that.
+The standard error of the standardized difference uses the joint covariance of the two margins, from the survey-logistic coefficients. The age and sex distribution of this sample is the standard population, and it is treated as fixed. The interval therefore does not add a further piece of sampling uncertainty for the chance that another sample would have a different age and sex mix. It is the uncertainty in the predicted prevalences given this standard. Treating the two margins as independent samples would have changed the standard error only in the fourth digit here. The calculation does not rely on that shortcut, and it also does not claim to have accounted for every source of sampling variability in the covariate distribution.
 
 The model assumes a constant log-odds association across age and sex. I did not add interactions after seeing the fit. A different age pattern could exist and still leave the average difference near 12.5 points.
 
@@ -79,7 +79,9 @@ Missing sleep is 1.4% of the weighted state and DC population (5,248 interviews)
 
 The primary analysis drops those missing outcomes. That is the right prevalence if, within a sleep group, people who skipped the item have the same prevalence as people who answered. The file cannot confirm that.
 
-The prespecified bounds refuse the assumption. Every missing answer is set to "no distress" or to "distress," in the combination that pulls the difference down and in the combination that pushes it up. The lower endpoint is 10.41 percentage points (95% CI 9.87 to 10.94). The upper endpoint is 14.88 percentage points (95% CI 14.35 to 15.42). Those intervals are sampling intervals around each endpoint. The identification statement is the distance between the endpoints, about 10.4 to 14.9 percentage points. Zero is outside it. The unanswered mental-health items are too few to erase the gap, and they are numerous enough that I would not quote the complete-case difference as if it were known to a tenth of a point.
+The prespecified bounds refuse that assumption. A missing answer is only constrained to be 0 or 1. The sharp bound for a difference uses opposite assignments in the two groups. The lower endpoint sets every missing short-sleep answer to no distress and every missing 7 to 9 hour answer to distress. The upper endpoint swaps those two assignments. Giving both groups the same fill for the missing answers is a narrower calculation, and it is not the sharp bound.
+
+The lower endpoint is 10.41 percentage points. A sampling 95% confidence interval for that endpoint alone is 9.87 to 10.94. The upper endpoint is 14.88 percentage points, with a sampling interval of 14.35 to 15.42 for that endpoint alone. The identification interval is the span from 10.41 to 14.88. That span is not a confidence interval, and the two sampling intervals are not its ends. The estimated identification interval lies above zero. That says which prevalence differences remain compatible with the observed answers when the missing ones may be anything in {0, 1}. It is not a p-value, and it is not a statement that sleep changes distress. The missing answers are common enough that I would not quote the complete-case difference as if it were known to a tenth of a point.
 
 The bounds do not reassign people who never reported a sleep hour. That would require a guess about their hours.
 
@@ -91,7 +93,7 @@ The singleton-stratum option changes the standard error and not the point estima
 
 I would hand them this paragraph.
 
-In community-dwelling adults in the 50 states and the District of Columbia in the 2022 BRFSS, frequent mental distress is about 23% among people who report under 7 hours of sleep and about 11% among people who report 7 to 9 hours. The gap is 12.82 percentage points (95% CI 12.29 to 13.35). Age and sex do not explain it. The missing mental-health answers cannot pull it below about 10 points, even under the assignment that is most generous to the 7 to 9 hour group. Extreme sleep reports and a narrower reference band move it by a few tenths of a point.
+In community-dwelling adults in the 50 states and the District of Columbia in the 2022 BRFSS, frequent mental distress is about 23% among people who report under 7 hours of sleep and about 11% among people who report 7 to 9 hours. The gap is 12.82 percentage points (95% CI 12.29 to 13.35). Age and sex, holding this sample's age and sex distribution fixed as the standard, do not explain it. Under the sharp missing-outcome bounds, the estimated identification interval for the same gap runs from 10.41 to 14.88 percentage points. That is a range of values still compatible with the data, not a test and not a causal effect. Extreme sleep reports and a narrower reference band move the complete-case difference by a few tenths of a point.
 
 I would also hand them the limits, in the same paragraph, because the number will be misused if they are attached later. The two answers were given on the same call. The gap is a description of who reports both things. It is not an estimate of what would happen if sleep changed. People in distress may sleep less, short sleep may feed distress, and causes that are not in the model, including pain, work hours, caregiving, and illness, can produce both reports. The 10-or-more-hour group has a similar descriptive prevalence, so a program aimed only at short sleep would be looking at one elevated group and missing another. The outcome is a count of days mental health was "not good." It is not a diagnosis of depression and it is not a case found in medical claims. The estimate does not cover children, people in institutions, or the three territories that fielded BRFSS in 2022.
 
@@ -105,7 +107,7 @@ From the repository root:
 Rscript studies/brfss-2022-sleep-fmd/run.R
 ```
 
-The command tests the recodes and the estimators on fabricated samples, verifies the CDC zip, audits the file, and refits the contrasts. Respondent-level data stay in `data/` and are not in the repository. Aggregate tables, the figure, and `estimates.json` are in `studies/brfss-2022-sleep-fmd/output/`. A simulation coverage check is stored beside them and labeled `simulation_not_brfss`. It is not a BRFSS result. In that check, 80 stratified samples from a finite population with a known difference, the interval covered the truth in 78 samples.
+The command tests the recodes and the estimators on fabricated samples, verifies the CDC zip, audits the file, and refits the contrasts. Respondent-level data stay in `data/` and are not in the repository. Aggregate tables, the figure, and `estimates.json` are in `studies/brfss-2022-sleep-fmd/output/`. A simulation coverage check is stored beside them and labeled `simulation_not_brfss`. It is not a BRFSS result. In that check, 80 stratified samples from a finite population with a known difference, the interval covered the truth in 78 samples. Eighty replicates is a coarse Monte Carlo check. The sampling uncertainty on a coverage rate near 95% is a few percentage points at that size, so 78 of 80 is compatible with the nominal level and is not a precise calibration. I did not rerun it to chase a rounder fraction.
 
 The run used R 4.3.3, survey 4.5, haven 2.5.5, ggplot2 4.0.3, and jsonlite 2.0.0. The case study page renders with Quarto 1.10.18, the version pinned for the site.
 
@@ -125,8 +127,12 @@ Centers for Disease Control and Prevention. Overview, BRFSS 2022. Weighting by r
 
 Lumley T. Analysis of complex survey samples. *Journal of Statistical Software*. 2004;9(8):1-19.
 
-Lumley T. survey: analysis of complex survey samples. R package version 4.5.
+The BRFSS microdata and the CDC documentation are works of the United States government. I am not attaching a new license to those files, and I am not adding a license for the rest of this website.
 
-Wickham H, Miller E, Smith D. haven: import and export SPSS, Stata and SAS files. R package version 2.5.5.
+Lumley T. survey: analysis of complex survey samples. R package version 4.5. License: GPL-2 or GPL-3.
 
-Wickham H. ggplot2: elegant graphics for data analysis. R package version 4.0.3.
+Wickham H, Miller E, Smith D. haven: import and export SPSS, Stata and SAS files. R package version 2.5.5. License: MIT. Includes ReadStat, copyright Evan Miller.
+
+Wickham H. ggplot2: elegant graphics for data analysis. R package version 4.0.3. License: MIT.
+
+Ooms J. jsonlite: a simple and robust JSON parser and generator for R. R package version 2.0.0. License: MIT.

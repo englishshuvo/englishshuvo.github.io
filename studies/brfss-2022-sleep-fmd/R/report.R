@@ -110,7 +110,9 @@ write_results_markdown <- function(estimates, path) {
     lines,
     "### Sensitivities for the primary difference",
     "",
-    "| Analysis | Difference, percentage points | 95% CI |",
+    "The interval column is a sampling 95% confidence interval for that row's estimate.",
+    "",
+    "| Analysis | Difference, percentage points | Sampling 95% CI |",
     "| --- | ---: | --- |",
     sprintf("| Primary, complete outcome, lonely PSU adjust | %s | %s to %s |", fmt_pp(d$estimate_pp), fmt_pp(d$ci_low_pp), fmt_pp(d$ci_high_pp)),
     sprintf("| Singleton strata, average variance | %s | %s to %s |", fmt_pp(estimates$lonely$average$estimate_pp), fmt_pp(estimates$lonely$average$ci_low_pp), fmt_pp(estimates$lonely$average$ci_high_pp)),
@@ -118,8 +120,23 @@ write_results_markdown <- function(estimates, path) {
     sprintf("| CDC R snippet cross-check, id = ~1 | %s | %s to %s |", fmt_pp(estimates$independent_ids$estimate_pp), fmt_pp(estimates$independent_ids$ci_low_pp), fmt_pp(estimates$independent_ids$ci_high_pp)),
     sprintf("| Exclude usual sleep below 3 or above 12 hours | %s | %s to %s |", fmt_pp(estimates$extreme$estimate_pp), fmt_pp(estimates$extreme$ci_low_pp), fmt_pp(estimates$extreme$ci_high_pp)),
     sprintf("| Reference restricted to 7 to 8 hours | %s | %s to %s |", fmt_pp(estimates$ref78$estimate_pp), fmt_pp(estimates$ref78$ci_low_pp), fmt_pp(estimates$ref78$ci_high_pp)),
-    sprintf("| No-assumption bounds, lower endpoint | %s | %s to %s |", fmt_pp(b$lower$estimate_pp), fmt_pp(b$lower$ci_low_pp), fmt_pp(b$lower$ci_high_pp)),
-    sprintf("| No-assumption bounds, upper endpoint | %s | %s to %s |", fmt_pp(b$upper$estimate_pp), fmt_pp(b$upper$ci_low_pp), fmt_pp(b$upper$ci_high_pp)),
+    "",
+    "### Identification bounds for missing outcomes",
+    "",
+    "These two rows are the ends of one identification interval for the prevalence difference. They are not a confidence interval. The sampling intervals describe uncertainty in each endpoint only.",
+    "",
+    "Lower endpoint: missing short-sleep outcomes set to no distress, and missing 7 to 9 hour outcomes set to distress.",
+    "Upper endpoint: the opposite assignment. Setting both groups' missing answers to the same value is not this bound.",
+    "",
+    "| Endpoint | Estimate, percentage points | Sampling 95% CI for the endpoint |",
+    "| --- | ---: | --- |",
+    sprintf("| Lower | %s | %s to %s |", fmt_pp(b$lower$estimate_pp), fmt_pp(b$lower$ci_low_pp), fmt_pp(b$lower$ci_high_pp)),
+    sprintf("| Upper | %s | %s to %s |", fmt_pp(b$upper$estimate_pp), fmt_pp(b$upper$ci_low_pp), fmt_pp(b$upper$ci_high_pp)),
+    "",
+    sprintf(
+      "Identification interval: %s to %s percentage points. That span is not a confidence interval.",
+      fmt_pp(b$lower$estimate_pp), fmt_pp(b$upper$estimate_pp)
+    ),
     ""
   )
   writeLines(lines, path)

@@ -22,7 +22,9 @@ Standardized difference: **12.51 percentage points** (95% CI 11.98 to 13.03).
 
 ### Sensitivities for the primary difference
 
-| Analysis | Difference, percentage points | 95% CI |
+The interval column is a sampling 95% confidence interval for that row's estimate.
+
+| Analysis | Difference, percentage points | Sampling 95% CI |
 | --- | ---: | --- |
 | Primary, complete outcome, lonely PSU adjust | 12.82 | 12.29 to 13.35 |
 | Singleton strata, average variance | 12.82 | 12.28 to 13.36 |
@@ -30,6 +32,18 @@ Standardized difference: **12.51 percentage points** (95% CI 11.98 to 13.03).
 | CDC R snippet cross-check, id = ~1 | 12.82 | 12.29 to 13.35 |
 | Exclude usual sleep below 3 or above 12 hours | 12.68 | 12.16 to 13.21 |
 | Reference restricted to 7 to 8 hours | 13.05 | 12.52 to 13.58 |
-| No-assumption bounds, lower endpoint | 10.41 | 9.87 to 10.94 |
-| No-assumption bounds, upper endpoint | 14.88 | 14.35 to 15.42 |
+
+### Identification bounds for missing outcomes
+
+These two rows are the ends of one identification interval for the prevalence difference. They are not a confidence interval. The sampling intervals describe uncertainty in each endpoint only.
+
+Lower endpoint: missing short-sleep outcomes set to no distress, and missing 7 to 9 hour outcomes set to distress.
+Upper endpoint: the opposite assignment. Setting both groups' missing answers to the same value is not this bound.
+
+| Endpoint | Estimate, percentage points | Sampling 95% CI for the endpoint |
+| --- | ---: | --- |
+| Lower | 10.41 | 9.87 to 10.94 |
+| Upper | 14.88 | 14.35 to 15.42 |
+
+Identification interval: 10.41 to 14.88 percentage points. That span is not a confidence interval.
 
