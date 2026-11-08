@@ -15,3 +15,9 @@
 **/*.quarto_ipynb
 
 /.claude/
+
+# Respondent-level BRFSS microdata. Aggregate outputs are written under output/.
+studies/brfss-2022-sleep-fmd/data/
+studies/brfss-2022-sleep-fmd/renv/library/
+*.xpt
+*.XPT

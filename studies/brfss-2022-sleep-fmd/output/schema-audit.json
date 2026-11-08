@@ -1,0 +1,142 @@
+{
+  "n_records": 445132,
+  "n_columns_read": 12,
+  "codebook_frequencies": {
+    "SLEPTIM1": {
+      "valid_1_24": 439679,
+      "dk_77": 4792,
+      "refused_99": 658,
+      "blank": 3
+    },
+    "MENTHLTH": {
+      "days_1_30": 170836,
+      "none_88": 265229,
+      "dk_77": 6589,
+      "refused_99": 2475,
+      "blank": 3
+    },
+    "SEXVAR": {
+      "male": 209239,
+      "female": 235893,
+      "other": 0
+    },
+    "_MENT14D": {
+      "zero": 265229,
+      "days_1_13": 110616,
+      "days_14_plus": 60220,
+      "missing": 9067
+    }
+  },
+  "fmd_crosswalk": {
+    "n": 445132,
+    "n_both_observed": 436065,
+    "n_disagree": 0,
+    "n_derived_missing_official_observed": 0,
+    "n_derived_observed_official_missing": 0
+  },
+  "weights": {
+    "n_missing": 0,
+    "n_nonpositive": 0,
+    "min": 0.02046386,
+    "max": 54390.52092567,
+    "sum_all_areas": 264789594,
+    "sum_states_dc": 261669771
+  },
+  "geography": {
+    "n_states_dc": 435826,
+    "n_excluded": 9306,
+    "excluded_counts": {
+      "Guam_66": 2266,
+      "Puerto_Rico_72": 5509,
+      "US_Virgin_Islands_78": 1531
+    },
+    "state_counts": {
+      "1": 4506,
+      "2": 5865,
+      "4": 10185,
+      "5": 5309,
+      "6": 10952,
+      "8": 9365,
+      "9": 9784,
+      "10": 3987,
+      "11": 3237,
+      "12": 13393,
+      "13": 9236,
+      "15": 7747,
+      "16": 6280,
+      "17": 4056,
+      "18": 10466,
+      "19": 8949,
+      "20": 11247,
+      "21": 4023,
+      "22": 5629,
+      "23": 10646,
+      "24": 16418,
+      "25": 11029,
+      "26": 10058,
+      "27": 16821,
+      "28": 4239,
+      "29": 7438,
+      "30": 7048,
+      "31": 7473,
+      "32": 3188,
+      "33": 6757,
+      "34": 8209,
+      "35": 4758,
+      "36": 17800,
+      "37": 4505,
+      "38": 4153,
+      "39": 16487,
+      "40": 5775,
+      "41": 5756,
+      "42": 4582,
+      "44": 5893,
+      "45": 10037,
+      "46": 7424,
+      "47": 5266,
+      "48": 14245,
+      "49": 9826,
+      "50": 8811,
+      "51": 10417,
+      "53": 26152,
+      "54": 4981,
+      "55": 11276,
+      "56": 4142,
+      "66": 2266,
+      "72": 5509,
+      "78": 1531
+    }
+  },
+  "design": {
+    "n_strata_all": 2263,
+    "n_strata_states_dc": 2245,
+    "strata_spanning_more_than_one_state": 0,
+    "n_psu_ids": 26152,
+    "psu_ids_in_more_than_one_stratum": 17800,
+    "max_cluster_size": 1,
+    "n_clusters_larger_than_one": 0,
+    "singleton_strata_all": 110,
+    "singleton_strata_states_dc": 110,
+    "min_psus_per_stratum_states_dc": 1
+  },
+  "age_sex_audit": {
+    "n_age_group_missing_code_14": 9079,
+    "n_code_14_with_nonmissing_AGE80": 9079,
+    "AGE80_min": 18,
+    "AGE80_max": 80,
+    "AGE80_missing": 0,
+    "n_SEXVAR_disagree_SEX": 605,
+    "n_BIRTHSEX_answered": 78897,
+    "n_BIRTHSEX_differs_from_SEXVAR": 605,
+    "note": "Estimation uses _AGEG5YR and SEXVAR. _AGE80 and _SEX are not analysis variables."
+  },
+  "sleep_item_in_states_dc": {
+    "valid_1_24": 430578,
+    "dk_77": 4590,
+    "refused_99": 655,
+    "blank": 3,
+    "hours_below_3": 2636,
+    "hours_above_12": 1519
+  },
+  "n_columns_in_transport_file": 328
+}
