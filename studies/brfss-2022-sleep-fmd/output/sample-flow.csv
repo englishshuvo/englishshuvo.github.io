@@ -1,0 +1,7 @@
+"step","unweighted_n","weighted_n","note","unweighted_excluded_from_previous"
+"1. All LLCP2022 records",445132,264789594,"Published file, all reporting areas.",NA
+"2. 50 states and DC",435826,261669771,"Allow-list of state FIPS codes. DC is included. Guam, Puerto Rico, and the US Virgin Islands are removed.",9306
+"3. Valid usual sleep, 1 to 24 hours",430578,257934505.573479,"SLEPTIM1 codes 77, 99, and blank are missing. Long sleep stays in this row.",5248
+"4. Contrast groups, under 7 hours or 7 to 9 hours",415191,248834915.788567,"Long sleep, 10 to 24 hours, is not in the primary contrast.",15387
+"5. Observed mental-health days",407452,243369067.431079,"Primary analytic sample. MENTHLTH 77, 99, and blank are missing.",7739
+"6. Observed age group and sex",399500,238447438.254382,"Secondary sample. _AGEG5YR code 14 is missing. SEXVAR must be 1 or 2.",7952

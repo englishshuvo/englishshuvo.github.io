@@ -1,0 +1,22 @@
+---
+title: "Amendments after the first executed run"
+subtitle: "BRFSS 2022 sleep and frequent mental distress"
+date: last-modified
+---
+
+Version 1.0 of the [protocol](protocol.qmd) and the [analysis plan](sap.qmd) stays the pre-analysis text. This note is later. It does not move a choice that was made after seeing the estimates back into that text.
+
+## Amendment 1. 8 November 2026
+
+Written after the estimates existed, during a quality review. No estimand changed. The primary difference remains 12.82 percentage points (95% CI 12.29 to 13.35). The bound endpoints remain 10.41 and 14.88 percentage points.
+
+What the review checked, and what was already true in the code and in version 1.0:
+
+- The missing-outcome bound for the difference uses opposite assignments. The lower endpoint sets missing short-sleep answers to 0 and missing 7 to 9 hour answers to 1. The upper endpoint swaps those assignments. Protocol section 10 and the plan already specified that pair of assignments. A new unit test now fails if a same-direction fill is reported as the sharp bound.
+- The case study and the results table now say, in so many words, that the span from the lower endpoint to the upper endpoint is an identification interval. The sampling confidence intervals sit on each endpoint separately. An identification interval that lies above zero is not a p-value and not a causal claim.
+- The margin standard errors are conditional on the observed age and sex distribution, used as a fixed standard population. They do not include a further term for sampling variability of that covariate distribution. The plan already said the standard population is treated as fixed. The case study now says the same thing next to the 12.51 point result.
+- Primary t intervals use 433,581 degrees of freedom, which is 435,826 sampling units minus 2,245 strata. Margin intervals use 397,271 degrees of freedom, which is 399,500 sampling units minus 2,229 strata on the secondary design. Both critical values match 1.96 at the displayed precision.
+
+The `subset()` wording in the plan was corrected in the results commit, after a failed call to `survey::subset`, which is not an exported name. That correction is not restated here as a new analysis.
+
+The simulation coverage check was not rerun. With 80 replicates, 78 intervals covered the finite-population truth. That is a coarse check. The Monte Carlo uncertainty on a coverage rate is a few percentage points at that size.

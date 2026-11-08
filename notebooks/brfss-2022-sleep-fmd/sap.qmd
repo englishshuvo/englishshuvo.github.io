@@ -1,0 +1,153 @@
+---
+title: "Statistical analysis plan: usual sleep and frequent mental distress"
+subtitle: "BRFSS 2022. Version 1.0, 8 November 2026. Locked before the contrast was fit."
+date: last-modified
+---
+
+This plan is the operational companion to the [protocol](protocol.qmd). Version 1.0 is the version the pipeline implements. If a later change is required after an estimate exists, it goes in an amendment with a date, not into this text as if it had been the original rule.
+
+The code that implements this plan is `studies/brfss-2022-sleep-fmd/`. The single run command is:
+
+```bash
+Rscript studies/brfss-2022-sleep-fmd/run.R
+```
+
+That command runs the unit tests, downloads or verifies the file, audits the schema and the design, fits the contrasts, and writes aggregate output. `Rscript studies/brfss-2022-sleep-fmd/run.R audit` stops before any contrast. `Rscript studies/brfss-2022-sleep-fmd/run.R test` runs only the tests.
+
+## Software
+
+R, with the `survey` package for the design, `haven` to read the SAS transport file, `ggplot2` for the figure, and `jsonlite` for the aggregate JSON. Package versions are written to `output/sessionInfo.txt` by the run that produced the numbers. Tests of the recodes and of the estimands do not use the BRFSS file. The coverage exercise is a simulation and is labeled `simulation_not_brfss` in its output.
+
+## File identity
+
+The pinned SHA-256 of `LLCP2022XPT.zip` is `b6319c949b7289f8020fc903c3c2d38fe7e0b28ad703dcd81547f5cd0c0dcfeb` (84,614,105 bytes), the object returned by the official URL when this plan was written. The pipeline downloads that URL and stops if the hash differs. It does not analyze a lookalike file.
+
+The zip member name has a trailing space (`LLCP2022.XPT `). The pipeline records that name and renames the extracted file.
+
+Hard stops before any contrast:
+
+- 445,132 records.
+- `SLEPTIM1` unweighted frequencies: 439,679 valid hours, 4,792 code 77, 658 code 99, 3 blank.
+- `MENTHLTH` unweighted frequencies: 170,836 codes 1 to 30, 265,229 code 88, 6,589 code 77, 2,475 code 99, 3 blank.
+- `_MENT14D` unweighted frequencies: 265,229 code 1, 110,616 code 2, 60,220 code 3, 9,067 code 9, and no other code.
+- `SEXVAR`: 209,239 code 1, 235,893 code 2, nothing else.
+- Derived frequent distress disagrees with `_MENT14D` on zero rows.
+- Every `_LLCPWT` is finite and positive.
+- No `_STSTR` maps to more than one `_STATE`.
+- The only non-allow-list FIPS codes are 66, 72, and 78.
+
+These frequencies are the codebook counts for all reporting areas, including the territories. They are an identity check, not the analytic sample.
+
+## Geography
+
+Allow-list, FIPS: 1, 2, 4, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 44, 45, 46, 47, 48, 49, 50, 51, 53, 54, 55, 56.
+
+Code 11 is the District of Columbia. The design is built on this allow-list only after the audit shows that strata do not cross states. Territory strata are dropped as whole strata, not as a subpopulation of a design that still contains them.
+
+## Recodes
+
+Sleep, from `SLEPTIM1`, primary reference:
+
+- 1 to 6: `short`
+- 7 to 9: `reference`
+- 10 to 24: `long`
+- 77, 99, blank, and any other code: missing
+
+The 7 to 8 hour sensitivity codes 7 and 8 as `reference`, 9 as `hour9` (out of the contrast, not recoded to long), and 10 to 24 as `long`.
+
+Implausible-hour sensitivity: among codes 1 to 24, hours below 3 or above 12 are set to missing before the grouping above. The primary analysis does not do this.
+
+Outcome, from `MENTHLTH`:
+
+- 14 to 30: 1
+- 88, or 1 to 13: 0
+- 77, 99, blank, and any other code: missing
+
+`_MENT14D` is used only in the crosswalk. Code 3 must match outcome 1. Codes 1 and 2 must match outcome 0. Code 9 must match outcome missing.
+
+Age, from `_AGEG5YR`: codes 1 to 13 kept, code 14 and anything else missing. `_AGE80` is not a donor.
+
+Sex, from `SEXVAR`: codes 1 and 2 kept. `_SEX` and `BIRTHSEX` are not donors.
+
+The estimation frame is not allowed to contain `_AGE80`, `_SEX`, or `BIRTHSEX`. `prepare_frame()` stops if it sees them.
+
+## Design object
+
+```r
+options(survey.lonely.psu = "adjust")
+svydesign(
+  ids = ~psu,
+  strata = ~ststr,
+  weights = ~wt,
+  data = states_dc,
+  nest = TRUE
+)
+```
+
+`adjust` recenters a stratum that has one PSU at the grand mean, which is the option named in the CDC R example. The package default is `fail`. Sensitivities set the same option to `average` and to `remove` and recompute the primary difference. The point estimate is not allowed to change. Survey 4.5 has no `certainty` setting, so that is not a sensitivity I can run under this stack.
+
+`nest = TRUE` is required because `_PSU` is an annual sequence number and the same value can occur in more than one stratum. The audit records how many identifiers repeat and the maximum number of rows in a stratum-by-PSU cell. A cell larger than one would mean `_PSU` is a real cluster rather than a person identifier. The primary specification uses `_PSU` either way.
+
+`id = ~1`, the CDC R snippet, is fit as a cross-check on the same weights and strata. It is not the reported variance. It does not use `_PSU`, so it does not hit the singleton-PSU option in the same way.
+
+No finite-population correction is applied. The public-use examples do not supply one.
+
+## Primary estimator
+
+On the allow-list design, for each level in {short, reference, long}:
+
+- numerator = weight times the outcome, for rows in that level with a non-missing outcome, and 0 otherwise
+- denominator = weight for those same rows, and 0 otherwise
+- prevalence = ratio of the two estimated totals
+
+The totals are estimated together with `svymean`, and the ratios and the short-minus-reference difference come from `svycontrast`, so the covariance is the design covariance. Confidence intervals use the survey package default, a t interval with the design degrees of freedom. With this many PSUs the t critical value is indistinguishable from 1.96, and the degrees of freedom are still reported.
+
+The prevalence ratio is `svycontrast` of short prevalence divided by reference prevalence, from the same totals.
+
+People outside a level contribute zeros. They are not deleted before the design is declared. Deleting them and calling `svydesign` again is not the reported variance.
+
+Cross-check: `subset()` on the design, which dispatches to `subset.survey.design`, keeping the short and reference rows with an observed outcome, then the same contrast. `subset` is the base generic. It is not exported as `survey::subset`. Stop if the differences differ by more than 0.0001 on the probability scale (0.01 percentage points), or if the standard errors differ by more than 5 percent relative.
+
+## Secondary estimator
+
+Sample: allow-list, sleep group short or reference, outcome observed, age in 1 to 13, sex in 1 or 2.
+
+Model: `svyglm(fmd ~ short + age_f + sex_f, family = quasibinomial())`, with `short` a 0/1 indicator, `age_f` a factor on levels 1 to 13, and `sex_f` a factor on levels 1 and 2. The run stops if any of those levels is empty. It does not drop a level and continue.
+
+Margins: for exposure set to 1 and set to 0, predicted probability from the logistic mean, averaged with the survey weights over the same rows. Difference of those averages.
+
+Variance: delta method. The gradient of a margin is the weighted mean of `p(1-p) x`, and the variance is that gradient times `vcov(svyglm)` times the gradient. The standard population is treated as fixed. The two margins share the coefficient covariance, so the difference does not use an independent-sample formula. A unit test checks that, on a saturated exposure-only model, this standard error matches the design-based standard error of the prevalence difference, and that it does not match the independent-sample formula.
+
+The odds ratio is `exp(coef)` for `short`, with a Wald interval on the log-odds scale. It is written to the output and labeled as not the estimand.
+
+## Bounds
+
+For the short group and the reference group, including rows with a missing outcome:
+
+- lower contribution = observed outcome, or 0 if missing
+- upper contribution = observed outcome, or 1 if missing
+- denominator = everyone in the group
+
+Lower difference = lower short prevalence minus upper reference prevalence. Upper difference = upper short minus lower reference. Endpoints have design-based intervals from the same joint linearization. The identification interval is the distance between the two endpoint estimates. It is not a confidence interval.
+
+## Outputs
+
+Aggregate files only, under `studies/brfss-2022-sleep-fmd/output/`:
+
+- `provenance.json`, `schema-audit.json`
+- `sample-flow.csv`, `missingness.csv`
+- `prevalence-by-sleep.csv`, `estimates.json`
+- `figure-primary.png`
+- `results-fragment.md`, `key-strings.txt`
+- `simulation-check.json`, labeled as a simulation
+- `sessionInfo.txt`
+
+`data/raw` and `data/intermediate` hold the microdata and are gitignored.
+
+## Display
+
+Prevalences and differences are shown to two decimal places in percentage points. The JSON keeps more precision. The case study is not allowed to quote a key result that is absent from `key-strings.txt`.
+
+## What this plan does not include
+
+No state-specific estimates. No trend against another year. No third primary contrast for long sleep. No substitution of imputed age. No module weight. No claim that the odds ratio is a prevalence ratio.

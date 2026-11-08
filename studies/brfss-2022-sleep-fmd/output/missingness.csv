@@ -1,0 +1,9 @@
+"item","population","unweighted_n","unweighted_denominator","weighted_share_of_population"
+"Sleep missing (77, 99, or blank)","50 states and DC",5248,435826,0.0142747303681501
+"Sleep reported below 3 hours","50 states and DC",2636,435826,0.00723159795045661
+"Sleep reported above 12 hours","50 states and DC",1519,435826,0.00396092685065535
+"Outcome missing among short sleep","Valid short sleep",3130,140665,0.0240734716068507
+"Outcome missing among 7 to 9 hours","Valid 7 to 9 hour sleep",4609,274526,0.0207089081839834
+"Outcome missing among long sleep","Valid long sleep",434,15387,0.0341401410873328
+"Age group missing","Primary contrast sample",7952,407452,0.0202229035458293
+"Sex missing","Primary contrast sample",0,407452,0

@@ -1,0 +1,10 @@
+{
+  "kind": "simulation_not_brfss",
+  "purpose": "Finite-population coverage of the primary prevalence-difference function.",
+  "truth_difference": 0.08917865,
+  "mean_estimate": 0.08355522,
+  "bias": -0.00562343,
+  "coverage": 0.975,
+  "n_replicates": 80,
+  "nominal_level": 0.95
+}

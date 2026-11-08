@@ -11,7 +11,9 @@ Programs ask a narrower question than papers do. They want to know how large a p
 
 **Briefing note.** One page showing how a burden estimate was framed for a non-technical audience and what the program did with it.
 
-*Both artifacts are in preparation.*
+*Both of those artifacts are in preparation.*
+
+**Usual sleep and frequent mental distress, BRFSS 2022.** A prespecified cross-sectional analysis of the public CDC file: the weighted prevalence of 14 or more poor mental health days among adults who report under 7 hours of sleep, compared with adults who report 7 to 9 hours, in the 50 states and the District of Columbia. The [protocol](../notebooks/brfss-2022-sleep-fmd/protocol.qmd), the [analysis plan](../notebooks/brfss-2022-sleep-fmd/sap.qmd), and the [case study](../notebooks/brfss-2022-sleep-fmd/case-study.qmd) are the record. This is independent sample work on a public survey. It is not a Nebraska DHHS product, not a pharmaceutical or regulatory submission, and not an analysis of a commercial claims database.
 
 ## What I actually did
 

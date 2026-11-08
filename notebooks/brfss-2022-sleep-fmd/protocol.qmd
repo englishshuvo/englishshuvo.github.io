@@ -1,0 +1,150 @@
+---
+title: "Study protocol: usual sleep and frequent mental distress"
+subtitle: "BRFSS 2022, public-use file. Version 1.0, 8 November 2026."
+date: last-modified
+---
+
+This protocol is independent sample work on a public CDC survey. I wrote it to show how I lock a question, a population, and an estimand before looking at the contrast. It is not a product of Nebraska DHHS, not work I did for an employer, and not a regulated submission. It is not a claims-based real-world evidence study. Frequent mental distress here is a self-report of days, not a diagnosis.
+
+The statistical analysis plan is the companion note: [SAP](sap.qmd). The executed case study is written only after the pipeline runs.
+
+## 1. Question
+
+Among adults in the 50 states and the District of Columbia, how much more common is frequent mental distress in people who report a usual sleep of under 7 hours than in people who report 7 to 9 hours?
+
+The answer I want is a difference in prevalence, in percentage points, with a design-based confidence interval. I do not want an odds ratio standing in for that difference.
+
+## 2. Why this design, stated before the result
+
+Both items are asked in the same telephone interview. The file is a cross-section. Nothing in it orders sleep before distress or distress before sleep. The estimand is an association in 2022. It is not an effect of changing sleep, and it is not a prediction of who will become distressed later.
+
+BRFSS is a stratified telephone sample with unequal weights. An unweighted percent would describe the people who happened to answer, not the adult population the weights target. The analysis uses the survey design.
+
+## 3. Data
+
+Behavioral Risk Factor Surveillance System, 2022, combined landline and cellular telephone public-use file, `LLCP2022`.
+
+Official landing page: [2022 BRFSS Survey Data and Documentation](https://www.cdc.gov/brfss/annual_data/annual_2022.html).
+
+Transport file: [LLCP2022XPT.zip](https://www.cdc.gov/brfss/annual_data/2022/files/LLCP2022XPT.zip).
+
+I use the combined file, not the versioned module files. The CDC design guide says that core-only analyses use `_LLCPWT`, `_STSTR`, and `_PSU` on `LLCP2022`. Usual sleep (`SLEPTIM1`) is core section 5, question 1. Days of poor mental health (`MENTHLTH`) is core section 2. Both are asked in every interview, so a module weight would be the wrong weight.
+
+The landing page states that the 2022 file has 445,132 records and includes the 50 states, the District of Columbia, Guam, Puerto Rico, and the US Virgin Islands. The pipeline checks that count against the downloaded file and stops if it does not match. Checksums, the retrieval time, and the column count are written to `studies/brfss-2022-sleep-fmd/output/provenance.json`.
+
+Respondent-level data are downloaded locally and are not committed. The repository keeps the code, the audit, and aggregate estimates.
+
+## 4. Population
+
+Adults 18 and older. BRFSS does not interview children. The target is the civilian noninstitutionalized adult population of the 50 states and the District of Columbia, which is what the combined weight is raked toward, after I drop the territories.
+
+Inclusion in the target geography is an allow-list of FIPS codes: the 50 states and code 11 for the District of Columbia. Guam (66), Puerto Rico (72), the US Virgin Islands (78), and any other code are excluded and named in the audit. I do not keep a row just because its weight is positive.
+
+Primary analytic sample, in order:
+
+1. In the allow-list geography.
+2. Usual sleep is an instrument-valid hour, 1 to 24.
+3. That hour is under 7, or it is 7 to 9. Reports of 10 to 24 hours stay in the descriptive table and leave the contrast.
+4. The mental-health item is observed, so frequent distress is 0 or 1 rather than missing.
+
+The secondary sample is the primary sample with a usable five-year age group and a usable sex code.
+
+## 5. Exposure
+
+`SLEPTIM1` asks: "On average, how many hours of sleep do you get in a 24-hour period?"
+
+| Code | Meaning in this study |
+| --- | --- |
+| 1 to 6 | Short sleep. Under 7 hours. |
+| 7 to 9 | Reference sleep. |
+| 10 to 24 | Long sleep. Descriptive only. Not in the primary contrast. |
+| 77, 99, blank | Missing. Not imputed. |
+
+Under 7 hours is the usual public-health cut for short sleep on this integer item. Seven to nine hours is the reference band I am willing to call the comparison group before seeing the outcome. I am not comparing short sleep with "everyone else," because long sleep is a different group and would change the question.
+
+## 6. Outcome
+
+`MENTHLTH` asks how many days in the past 30 the respondent's mental health was not good, "which includes stress, depression, and problems with emotions."
+
+| Code | Meaning in this study |
+| --- | --- |
+| 1 to 13 | Not frequent distress. |
+| 14 to 30 | Frequent mental distress. |
+| 88 | Zero days. Not frequent distress. |
+| 77, 99, blank | Missing. Not imputed in the primary analysis. |
+
+Fourteen days is the cut CDC uses in the calculated variable `_MENT14D`. That variable is coded 1 for zero days, 2 for 1 to 13 days, 3 for 14 or more days, and 9 for missing, from the SAS rule in the 2022 calculated-variable document. I derive the outcome from `MENTHLTH` and then cross-check every row against `_MENT14D`. Any disagreement stops the run before a contrast is fit. I do not switch the outcome to `_MENT14D` silently, and I do not ignore a mismatch.
+
+This outcome is the Healthy Days item. It is not a clinical diagnosis, not a PHQ-9 score, and not a diagnosis code on a claim.
+
+## 7. Primary estimand
+
+The weighted prevalence of frequent mental distress among adults in the short-sleep group, minus the same prevalence in the 7 to 9 hour group.
+
+Both prevalences are domain ratios on the design for the 50 states and DC: the weighted count of people in the group who report frequent distress, divided by the weighted count of people in the group with an observed outcome. The variance is Taylor linearization on that full design, including the covariance of the two ratios. The interval is the survey package's 95 percent confidence interval.
+
+A prevalence ratio of the same two prevalences is reported next to the difference. It is a companion, not a second primary result, and it is not an odds ratio.
+
+Long sleep has a descriptive prevalence in the same table. I do not test it against the reference group.
+
+## 8. Secondary estimand
+
+Among adults in the primary sample who also have `_AGEG5YR` in 1 to 13 and `SEXVAR` in 1 or 2, fit a survey logistic model
+
+`frequent distress ~ short sleep + age group + sex`
+
+with age group and sex as factors. The secondary estimand is the average predicted probability if everyone in that sample were short sleep, minus the average predicted probability if everyone were in the 7 to 9 hour group. The average uses the survey weights. Both predictions use the same people. The result is a prevalence difference in percentage points.
+
+The logistic coefficient is an odds ratio. It is stored so it can be compared with the prevalence ratio. It is not the result, and it is not a risk ratio.
+
+I use `_AGEG5YR` and `SEXVAR` on purpose. `_AGE80` is imputed age, including for people whose age group is missing. `_SEX` prefers `BIRTHSEX` when that item is answered, and `BIRTHSEX` is not a core item asked of every state. Substituting either variable would change the sample or the covariate. The audit counts those discrepancies and the estimation frame drops both columns so the model cannot see them.
+
+The model has no sleep-by-age or sleep-by-sex interaction. The standardized difference is therefore the difference under a constant log-odds association across age and sex. That is a modeling choice, not a finding that the association is the same in every group.
+
+Standard errors for the margins use the delta method on the design-based coefficient covariance. The age and sex distribution of the complete-case contrast sample is the standard population in that calculation. The interval for the difference uses the joint covariance. It is not computed as if the two margins were independent samples.
+
+## 9. Design
+
+| Role | Variable |
+| --- | --- |
+| Weight | `_LLCPWT`, the final combined landline and cell-phone weight |
+| Stratum | `_STSTR` |
+| Cluster | `_PSU` |
+
+`_PSU` is the annual sequence number. The codebook says it should be unique within a state and year, so the same number can appear in more than one stratum. The design is declared nested. Declaring it un-nested is a mistake the survey package rejects when an identifier repeats, and the audit records whether it repeats.
+
+The CDC R example in the 2022 design guide sets `id = ~1` and `options(survey.lonely.psu = "adjust")`. The SAS example in the same document clusters on `_PSU`. I follow the SAS example and the prose, and I keep `id = ~1` as a cross-check. I set `survey.lonely.psu` to `adjust` because that is the option the CDC R example sets, and because the package default `fail` stops the variance calculation when a stratum has a single PSU. The public-use file does not include a finite-population correction in the form the examples use, so I do not invent one. The variance is the with-replacement linearization.
+
+Territories are whole states. The audit confirms that no stratum crosses a state boundary, which is the condition for dropping those strata before `svydesign` rather than treating them as a domain of a larger design.
+
+## 10. Missing data
+
+Primary analysis: people missing sleep are outside every sleep group. People missing the outcome are outside the prevalence denominator. That complete-case prevalence is the right number if, within a sleep group, the weighted prevalence among people who skipped the mental-health item equals the prevalence among people who answered it. Nothing in the file tests that.
+
+Sensitivity, prespecified: identification bounds. Within each contrast group, every missing outcome is set to "no distress" and to "distress." The lower bound of the difference assigns the combination that makes short sleep look as favorable as the data allow. The upper bound assigns the opposite. The only assumption is that an unobserved binary outcome is 0 or 1. These are bounds on the identified value, not a confidence interval. Sampling intervals for the endpoints are reported beside them and are not glued into one interval.
+
+The bounds do not cover people who never reported a valid sleep hour. Putting them into a sleep group would require a guess about their hours.
+
+## 11. Other sensitivities
+
+1. Drop reported usual sleep below 3 hours or above 12 hours, then recompute the primary difference. The instrument allows 1 to 24. A usual average of 1 or 2 hours, or of 13 to 24 hours, is hard to take as a stable 24-hour average for an adult who finished this interview. I treat that as a sensitivity, not as the main definition, because the codebook's valid range is 1 to 24 and the primary question is about that item as fielded. The reference band, 7 to 9, is unchanged by these cuts. What changes is the short-sleep group, which loses the 1 and 2 hour reports, and the long-sleep tail, which is not in the contrast.
+2. Move the reference to 7 to 8 hours. Hour 9 leaves the contrast. It is not relabeled as long sleep.
+3. Recompute the primary standard error with `survey.lonely.psu` set to `average` and to `remove`. Survey 4.5, the version this pipeline uses, does not offer a `certainty` option. The point estimate should not move. If the standard error moves by a material amount, the case study says so.
+
+The two population changes, extreme hours and the 7 to 8 hour reference, are also refit for the secondary margins, because they change who is in the standard population.
+
+## 12. What would stop the run
+
+The pipeline stops before any contrast if the record count is not 445,132, if a codebook frequency for `SLEPTIM1`, `MENTHLTH`, `_MENT14D`, or `SEXVAR` does not match, if the derived outcome disagrees with `_MENT14D`, if a weight is missing or not positive, if a stratum maps to more than one state, or if an unexpected state code appears. A later gate stops the write-up if the full-design difference and the same difference after `subset()` on the design disagree by more than 0.01 percentage points, or if their standard errors disagree by more than 5 percent relative.
+
+## 13. What I will not claim
+
+- That short sleep causes frequent distress, or the reverse.
+- That a program which lengthened sleep would reduce the prevalence by the estimated difference.
+- That the outcome is depression, anxiety, or any billed condition.
+- That the estimate applies to children, to people in institutions, or to the territories.
+- That the estimate is a commercial real-world evidence result. There is no enrollment window, no prescription fill, and no claims algorithm.
+
+## 14. Decision use
+
+A program person can use the primary difference as a description of how much more common this self-report is in the short-sleep group, in this population, in this year, if the bounds and the sensitivities still tell the same story. If the bounds include no difference, the missing mental-health answers are large enough to overturn the complete-case result, and the number should not be used as a burden contrast. The case study states which of those is true, using the executed output only.
